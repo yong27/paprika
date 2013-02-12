@@ -6,6 +6,7 @@ Django based blog and web board system
 ## Installation
 
     $ git clone https://github.com/yong27/paprika
+    $ cd paprika
     $ virtualenv .
     $ cat > lib/python2.7/sitecustomize.py << EOF
     import sys
