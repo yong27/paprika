@@ -2,11 +2,16 @@ from django.contrib import admin
 from paprika.models import Board, Category, Article, Tag
 
 class BoardAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'slug', 'title', 'type', 'description', 
+    )
+    list_filter = ('type',)
 admin.site.register(Board, BoardAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'slug', 'title'
+    )
 admin.site.register(Category, CategoryAdmin)
 
 class ArticleAdmin(admin.ModelAdmin):

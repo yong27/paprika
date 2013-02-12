@@ -7,6 +7,11 @@ Django based blog and web board system
 
     $ git clone https://github.com/yong27/paprika
     $ virtualenv .
+    $ cat > lib/python2.7/sitecustomize.py << EOF
+    import sys
+    sys.setdefaultencoding('utf-8')
+    EOF
+    $ pip install pip-requirements.txt
     $ cd paprikasite
     $ vi paprikasite/settings.py   ## add your settings here
     $ python manage.py syncdb
