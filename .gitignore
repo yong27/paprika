@@ -3,3 +3,5 @@ readline*
 bin
 include
 .Python
+*.pyc
+paprika.db
