@@ -1,0 +1,5 @@
+{% block content %}
+<a href="{% url article_list article.board.slug %}">{{ article.board.title }}</a>
+<h2>{{ article.title }}</h2>
+{{ article.content|safe }}
+{% endblock %}
