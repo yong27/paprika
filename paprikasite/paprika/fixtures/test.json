@@ -1,0 +1,43 @@
+[
+    {
+        "pk": 1, 
+        "model": "paprika.board", 
+        "fields": {
+            "description": "\uc2e4\ud5d8\uc5d0 \uc2e4\ud328\ub780 \uc5c6\ub2e4 \ube14\ub85c\uadf8", 
+            "type": "blog", 
+            "slug": "exp", 
+            "title": "Experiment never fail"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "paprika.category", 
+        "fields": {
+            "slug": "etc", 
+            "title": "\uc2e0\ubcc0\uc7a1\uae30"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "paprika.article", 
+        "fields": {
+            "category": 1, 
+            "public_datetime": null, 
+            "registrator": 1, 
+            "modified_datetime": "2013-02-12T06:19:57.757Z", 
+            "title": "\ud14c\uc2a4\ud2b8 \uae00\uc4f0\uae30", 
+            "created_datetime": "2013-02-12T05:42:45.785Z", 
+            "tags": 1, 
+            "content": "<p>\uc774\uac74 \ud14c\uc2a4\ud2b8 \uae00\uc4f0\uae30\uc5b4\uc694&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p><strong>\uadf8\ub300\ub85c \uae00\uc4f0\uae30\uac00 \uac00\ub2a5 \ud55c \uac83 \uac19\uc9c0\ub9cc...</strong></p>\r\n<p>&nbsp;</p>\r\n<p>\uc774\ub300\ub85c\ub294 \uc544\ub2c8\ub418\uc624&nbsp;</p>", 
+            "board": 1, 
+            "slug": "its-a-test"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "paprika.tag", 
+        "fields": {
+            "slug": "test"
+        }
+    }
+]

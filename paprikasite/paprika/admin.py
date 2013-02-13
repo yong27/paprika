@@ -17,7 +17,7 @@ admin.site.register(Category, CategoryAdmin)
 class ArticleAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_datetime'
     list_display = (
-        'board', 'category', 'title', 'slug', 
+        'slug', 'title', 'board', 'category',
         'created_datetime', 'modified_datetime', 'public_datetime',
     )
     list_filter = ('board',)

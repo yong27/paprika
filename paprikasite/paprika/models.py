@@ -20,6 +20,7 @@ class Board(models.Model):
     slug = models.CharField(verbose_name=ugettext_lazy('Slug'),
         help_text=ugettext_lazy('Board slug, space is not permitted, it is used in URL.'),
         max_length=100,
+        unique=True,
     )
     description = HTMLField(verbose_name=ugettext_lazy('Description'),
         help_text=ugettext_lazy('Board description, it is displayed in main page.'),
@@ -42,6 +43,7 @@ class Category(models.Model):
     slug = models.CharField(verbose_name=ugettext_lazy('Slug'),
         help_text=ugettext_lazy('Category slug, space is not permitted, it is used in URL.'),
         max_length=100,
+        unique=True,
     )
 
     class Meta:
@@ -69,6 +71,7 @@ class Article(models.Model):
     slug = models.CharField(verbose_name=ugettext_lazy('Slug'),
         help_text=ugettext_lazy('Article slug, space is not permitted.'),
         max_length=100,
+        unique=True,
     )
     content =HTMLField(verbose_name=ugettext_lazy('Content'),
         help_text=ugettext_lazy('Article content, this is saved in HTML format.'),
@@ -107,6 +110,7 @@ class Tag(models.Model):
     slug = models.CharField(verbose_name=ugettext_lazy('Slug'),
         help_text=ugettext_lazy('Tag slug, space is not permitted.'),
         max_length=100,
+        unique=True,
     )
 
     class Meta:
