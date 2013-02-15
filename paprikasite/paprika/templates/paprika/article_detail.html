@@ -1,5 +1,5 @@
 {% extends "paprika/base_site.html" %}
-{% load i18n %}
+{% load i18n markup %}
 
 {% block branding %}
 <h3 class="muted"><a href="{% url article_list article.board.slug %}">{{ article.board.title }}</a></h3>
@@ -8,5 +8,9 @@
 
 {% block content %}
 <h4>{{ article.title }}</h4>
-{{ article.content|safe }}
+{% if article.board.markup == 'markdown' %}
+    {{ article.content|markdown:"safe" }}
+{% else %}
+    {{ article.content|safe }}
+{% endif %}
 {% endblock %}

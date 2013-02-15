@@ -1,17 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy 
-from tinymce.models import HTMLField
 
 class Board(models.Model):
     BOARD_TYPE_CHOICES = (
-        ('blog', 'blog'),
-        ('web-board', 'web-board'),
+        ('blog', 'Blog'),
+        ('web-board', 'Web-board'),
+    )
+    MARKUP_CHOICES = (
+        ('markdown', 'Markdown'),
+        ('textile', 'Textile'),
+        ('restructuredtext', 'reStructured Text'),
+        ('tinymce', 'TinyMCE'),
     )
     type = models.CharField(verbose_name=ugettext_lazy('Board type'),
         help_text=ugettext_lazy('Board type, web-board view supply title only list, '
                     'blog is content included view.'),
-        max_length=50, choices=BOARD_TYPE_CHOICES,
+        choices=BOARD_TYPE_CHOICES,
+        max_length=50, 
     )
     title = models.CharField(verbose_name=ugettext_lazy('Title'),
         help_text=ugettext_lazy('Board title, space is permitted.'),
@@ -24,6 +30,11 @@ class Board(models.Model):
     )
     description = models.TextField(verbose_name=ugettext_lazy('Description'),
         help_text=ugettext_lazy('Board description, it is displayed in main page.'),
+    )
+    markup = models.CharField(verbose_name=ugettext_lazy('Markup language'),
+        help_text=ugettext_lazy("Select markup language for this board's article editing"),
+        choices=MARKUP_CHOICES,
+        max_length=50,
     )
 
     class Meta:
@@ -73,7 +84,7 @@ class Article(models.Model):
         max_length=100,
         unique=True,
     )
-    content =HTMLField(verbose_name=ugettext_lazy('Content'),
+    content = models.TextField(verbose_name=ugettext_lazy('Content'),
         help_text=ugettext_lazy('Article content, this is saved in HTML format.'),
     )
     created_datetime = models.DateTimeField(verbose_name=ugettext_lazy('Created datetime'), 
