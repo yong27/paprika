@@ -20,26 +20,20 @@
     margin: 30px 0;
   }
 
-  /* Main marketing message and sign up button */
-  .jumbotron {
-    margin: 60px 0;
-    text-align: center;
+  /* Supporting article content */
+  .article {
+    margin: 28px 0;
+    font-family: 나눔고딕, NanumGothic;
+    text-align: justify;
+    font-size: 1.1em;
+    line-height: 170%;
+    word-break: break-all;
   }
-  .jumbotron h1 {
-    font-size: 72px;
-    line-height: 1;
-  }
-  .jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
-
-  /* Supporting marketing content */
-  .marketing {
-    margin: 60px 0;
-  }
-  .marketing p + h4 {
+  .article p + h4 {
     margin-top: 28px;
+  }
+  .footer {
+    text-align: right;
   }
 </style>
 <link rel="stylesheet" type="text/css" href="{% static 'paprika/bootstrap/css/bootstrap-responsive.min.css' %}" />
@@ -57,20 +51,22 @@
 <div class="container-narrow">
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li class="active"><a href="{% url article_list board.slug %}">Home</a></li>
+            <li><a href="#">Category</a></li>
+            <li><a href="#">Tag</a></li>
+            <li><a href="{% url article_list board.slug %}">Archive</a></li>
         </ul>
-        {% block branding %}{% endblock %}
+        <h3 class="muted">{{ board.title }}</h3>
+        <p>{{ board.description }}</p>
     </div>
     <hr />
-    <div class="row-fluid marketing">
+    <div class="row-fluid article">
         {% block content %}{% endblock %}
     </div>
     <hr />
 
     <div class="footer">
-        <p>&copy; BioHackersNet</p>
+        <p>&copy; <a href="http://biohackers.net">BioHackersNet</a></p>
     </div>
 </div>
 

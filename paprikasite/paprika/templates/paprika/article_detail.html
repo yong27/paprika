@@ -1,10 +1,7 @@
 {% extends "paprika/base_site.html" %}
 {% load i18n markup %}
 
-{% block branding %}
-<h3 class="muted"><a href="{% url article_list article.board.slug %}">{{ article.board.title }}</a></h3>
-<p>{{ article.board.description }}</p>
-{% endblock %}
+{% block title %}{{ article.title }} | {{ board.title }}{% endblock %}
 
 {% block content %}
 <h4>{{ article.title }}</h4>

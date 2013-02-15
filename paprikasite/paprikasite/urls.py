@@ -15,5 +15,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^paprika/', include('paprika.urls')),
+    url(r'^', include('paprika.urls')),
 )

@@ -20,3 +20,8 @@ class BoardArticleList(ArticleList):
 class ArticleDetail(DetailView):
     model = Article
     context_object_name = 'article'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetail, self).get_context_data(**kwargs)
+        context['board'] = context['article'].board
+        return context
