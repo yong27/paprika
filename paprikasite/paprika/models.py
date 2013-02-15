@@ -22,7 +22,7 @@ class Board(models.Model):
         max_length=100,
         unique=True,
     )
-    description = HTMLField(verbose_name=ugettext_lazy('Description'),
+    description = models.TextField(verbose_name=ugettext_lazy('Description'),
         help_text=ugettext_lazy('Board description, it is displayed in main page.'),
     )
 

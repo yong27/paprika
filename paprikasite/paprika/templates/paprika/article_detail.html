@@ -1,8 +1,12 @@
 {% extends "paprika/base_site.html" %}
 {% load i18n %}
 
+{% block branding %}
+<h3 class="muted"><a href="{% url article_list article.board.slug %}">{{ article.board.title }}</a></h3>
+<p>{{ article.board.description }}</p>
+{% endblock %}
+
 {% block content %}
-<a href="{% url article_list article.board.slug %}">{{ article.board.title }}</a>
-<h2>{{ article.title }}</h2>
+<h4>{{ article.title }}</h4>
 {{ article.content|safe }}
 {% endblock %}
