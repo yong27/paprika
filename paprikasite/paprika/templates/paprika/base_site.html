@@ -1,0 +1,16 @@
+{% extends "paprika/base.html" %}
+{% load i18n staticfiles %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'paprika/bootstrap/css/bootstrap.min.css' %}" />
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="{% static 'paprika/js/jquery-1.9.1.min.js' %}"></script>
+<script src="{% static 'paprika/bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+
+{% block title %}{{ title }} | {% trans 'Paprika' %}{% endblock %}
+
