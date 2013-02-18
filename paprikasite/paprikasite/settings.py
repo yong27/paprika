@@ -167,6 +167,7 @@ DATABASES = {
 INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.comments',
     'django.contrib.markup',
     'tinymce',
     'paprika',

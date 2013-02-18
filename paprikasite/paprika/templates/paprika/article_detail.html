@@ -1,5 +1,5 @@
 {% extends "paprika/base_site.html" %}
-{% load i18n markup %}
+{% load i18n markup comments %}
 
 {% block title %}{{ article.title }} | {{ board.title }}{% endblock %}
 
@@ -10,4 +10,13 @@
 {% else %}
     {{ article.content|safe }}
 {% endif %}
+
+<h5>Comments</h5>
+{% get_comment_count for article as comment_count %}
+<p>total {{ comment_count }} comments</p>
+
+{% render_comment_list for article %}
+
+{% render_comment_form for article %}
+
 {% endblock %}
