@@ -1,6 +1,5 @@
 Django==1.5
 Markdown==2.2.1
-django-tinymce==1.5.1b4
 docutils==0.10
 textile==2.1.5
 wsgiref==0.1.2
