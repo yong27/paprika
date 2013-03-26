@@ -1,4 +1,4 @@
-Django==1.4.3
+Django==1.5
 Markdown==2.2.1
 django-tinymce==1.5.1b4
 docutils==0.10
