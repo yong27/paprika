@@ -104,7 +104,7 @@ class Article(models.Model):
     registrator = models.ForeignKey(User, verbose_name=ugettext_lazy('Registrator'),
         help_text=ugettext_lazy('Article registrator'),
     )
-    tags = models.ForeignKey('Tag', verbose_name=ugettext_lazy('Tag'),
+    tags = models.ManyToManyField('Tag', verbose_name=ugettext_lazy('Tag'),
         help_text=ugettext_lazy('Article tags, multiple tags are permitted'),
     )
 

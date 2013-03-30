@@ -15,7 +15,7 @@ $('#comment-tab a').click(function(e) {
 
 {% block content %}
 <h4>{{ article.title }}</h4>
-<p class="text-right"><small>{{ article.created_datetime }}</small></p>
+<p class="text-right">{{ article.category.title }} - <small>{{ article.created_datetime }}</small></p>
 
 {% if article.board.markup == 'markdown' %}
     {{ article.content|markdown:"safe" }}
@@ -23,7 +23,15 @@ $('#comment-tab a').click(function(e) {
     {{ article.content|safe }}
 {% endif %}
 
-<h5>Comments</h5>
+<br />
+<p><strong>{% trans 'Tags' %}:</strong>
+{% for tag in article.tags.all %}
+{{ tag.slug }}{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</p>
+
+<br />
+<h5>{% trans 'Comments' %}</h5>
 {% get_comment_count for article as comment_count %}
 
 <ul class="nav nav-tabs">
@@ -37,6 +45,7 @@ $('#comment-tab a').click(function(e) {
 <div class="tab-content">
     <div class="tab-pane active" id="paprika-comment">
     {% render_comment_list for article %}
+    <hr />
     {% get_comment_form for article as form %}
     <form action="{% comment_form_target %}" method="post" class="form-horizontal">
         {% csrf_token %}
@@ -90,5 +99,8 @@ $('#comment-tab a').click(function(e) {
     <p>twitter comment under construction</p>
     </div>
 </div>
+<hr />
+
+Previous Next
 
 {% endblock %}
