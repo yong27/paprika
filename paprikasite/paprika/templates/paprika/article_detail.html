@@ -15,7 +15,7 @@ $('#comment-tab a').click(function(e) {
 
 {% block content %}
 <h4>{{ article.title }}</h4>
-<p class="text-right">{{ article.category.title }} - <small>{{ article.created_datetime }}</small></p>
+<p class="text-right"><a href="{% url 'category_detail' board.slug article.category.slug %}">{{ article.category.title }}</a> - <small><a href="{% url 'article_detail' article.id article.slug %}">{{ article.created_datetime }}</a></small></p>
 
 {% if article.board.markup == 'markdown' %}
     {{ article.content|markdown:"safe" }}

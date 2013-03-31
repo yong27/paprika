@@ -6,8 +6,8 @@
 {% block content %}
 <h4>Category list</h4>
 <ul>
-    {% for category in categories %}
+{% for category in categories %}
     <li><a href="{% url 'category_detail' board.slug category.slug %}">{{ category.title }}</a></li>
-    {% endfor %}
+{% endfor %}
 </ul>
 {% endblock %}
