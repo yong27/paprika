@@ -159,8 +159,10 @@ INSTALLED_APPS += (
     'paprika',
 )
 HOME_BOARD_SLUG = 'enf'
+FB_COMMENT_APP_ID = None
 
-## add your settings here
+
+## add your settings here. below is yong27's setting
 LANGUAGE_CODE = 'ko-KR'
 TIME_ZONE = 'Asia/Seoul'
 DATABASES = {
@@ -174,3 +176,4 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+FB_COMMENT_APP_ID = '191546750082'

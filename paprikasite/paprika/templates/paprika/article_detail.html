@@ -91,9 +91,19 @@ $('#comment-tab a').click(function(e) {
     </form>
     </div>
 
+    {% if fb_comment_app_id %}
     <div class="tab-pane" id="facebook">
-    <p>facebook comment under construction</p>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/ko_KR/all.js#xfbml=1&appId={{ fb_comment_app_id }}";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-comments" data-href="http://{{ http_host }}{{ article.get_absolute_url }}" data-width="700" data-num-posts="10"></div>
     </div>
+    {% endif %}
 
     <div class="tab-pane" id="twitter">
     <p>twitter comment under construction</p>
@@ -101,15 +111,14 @@ $('#comment-tab a').click(function(e) {
 </div>
 <hr />
 
-{{ article.hello }}
+{{ request.get_pull_path }}
 
 <p>
 {% if article.get_previous %}
-<strong>Previous article</strong> <a href="{{ article.get_previous.get_absolute_url }}">{{ article.get_previous.title }}</a>
+<strong>Previous article</strong> <a href="{{ article.get_previous.get_absolute_url }}">{{ article.get_previous.title }}</a>...
 {% endif %}
-...
 {% if article.get_next %}
-<strong>Next article</strong> <a href="{{ article.get_next.get_absolute_url }}">{{ article.get_next.title }}</a>
+...<strong>Next article</strong> <a href="{{ article.get_next.get_absolute_url }}">{{ article.get_next.title }}</a>
 {% endif %}
 
 {% endblock %}

@@ -43,6 +43,8 @@ class ArticleDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ArticleDetail, self).get_context_data(**kwargs)
         context['board'] = context['article'].board
+        context['fb_comment_app_id'] = settings.FB_COMMENT_APP_ID
+        context['http_host'] = self.request.META['HTTP_HOST']
         return context
 
 

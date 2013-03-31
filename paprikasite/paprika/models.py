@@ -50,7 +50,7 @@ class Board(models.Model):
         verbose_name_plural = ugettext_lazy('Boards')
         ordering = ('title',)
 
-    def __str(self):
+    def __str__(self):
         return "[{0}] {1}".format(self.slug, self.title)
 
     def get_absolute_url(self):
