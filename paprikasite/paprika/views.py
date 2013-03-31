@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from paprika.models import Article, Board, Category, Tag
 
 
-class Home(RedirectView):
+class Board(RedirectView):
     def get_redirect_url(self, board_slug):
         board = get_object_or_404(Board, slug=board_slug)
         latest_article = Article.objects.public_in_board(board).latest()

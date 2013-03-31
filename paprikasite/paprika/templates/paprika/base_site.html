@@ -51,13 +51,13 @@
 <div class="container-narrow">
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="{% url 'home' board.slug %}">Home</a></li>
+            <li class="active"><a href="{% url 'board' board.slug %}">Home</a></li>
 	    <li><a href="{% url 'category_list' board.slug %}">Category</a></li>
             <li><a href="{% url 'tag_list' board.slug %}">Tag</a></li>
             <li><a href="{% url 'article_list' board.slug %}">Archive</a></li>
         </ul>
         <h3 class="muted">{{ board.title }}</h3>
-        <p>{{ board.description }}</p>
+        <p>{{ board.description }} <a href="{% url 'article_rss' board.slug %}"><img src="{% static 'paprika/image/feed-icon-16x16.png' %}" /></a></p>
     </div>
     <hr />
     <div class="row-fluid article">

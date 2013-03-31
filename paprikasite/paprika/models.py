@@ -50,6 +50,9 @@ class Board(models.Model):
     def __unicode__(self):
         return "[{0}] {1}".format(self.slug, self.title)
 
+    def get_absolute_url(self):
+        return reverse('board', args=(self.slug,))
+
 
 class Category(models.Model):
     title = models.CharField(verbose_name=ugettext_lazy('Title'),
