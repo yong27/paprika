@@ -101,6 +101,15 @@ $('#comment-tab a').click(function(e) {
 </div>
 <hr />
 
-Previous Next
+{{ article.hello }}
+
+<p>
+{% if article.get_previous %}
+<strong>Previous article</strong> <a href="{{ article.get_previous.get_absolute_url }}">{{ article.get_previous.title }}</a>
+{% endif %}
+...
+{% if article.get_next %}
+<strong>Next article</strong> <a href="{{ article.get_next.get_absolute_url }}">{{ article.get_next.title }}</a>
+{% endif %}
 
 {% endblock %}

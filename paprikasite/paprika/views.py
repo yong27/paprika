@@ -9,7 +9,8 @@ from paprika.models import Article, Board, Category, Tag
 
 class Home(RedirectView):
     def get_redirect_url(self, board_slug):
-        latest_article = Article.objects.public_in_board(board_slug).latest()
+        board = get_object_or_404(Board, slug=board_slug)
+        latest_article = Article.objects.public_in_board(board).latest()
         return reverse('article_detail', args=(latest_article.id, latest_article.slug))
 
 
@@ -19,7 +20,7 @@ class ArticleList(ListView):
 
     def get_queryset(self):
         self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
-        return Article.objects.public_in_board(self.board.slug)
+        return Article.objects.public_in_board(self.board)
 
     def get_context_data(self, **kwargs):
         context = super(ArticleList, self).get_context_data(**kwargs)

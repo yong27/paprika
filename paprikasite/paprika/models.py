@@ -1,8 +1,10 @@
 from datetime import datetime
 
+from django.utils.timezone import utc
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy 
+from django.core.urlresolvers import reverse
 
 
 class Board(models.Model):
@@ -70,8 +72,9 @@ class Category(models.Model):
 
 
 class ArticleManager(models.Manager):
-    def public_in_board(self, board_slug):
-        return Article.objects.filter(public_datetime__lte=datetime.now, board__slug=board_slug)
+    def public_in_board(self, board):
+        now = datetime.utcnow().replace(tzinfo=utc)
+        return Article.objects.filter(public_datetime__lte=now, board=board)
 
 
 class Article(models.Model):
@@ -127,11 +130,20 @@ class Article(models.Model):
     def __unicode__(self):
         return "Article:{0}".format(self.slug)
 
+    def get_absolute_url(self):
+        return reverse('article_detail', args=(self.id, self.slug))
+
     def get_previous(self):
-        Article.objects.filter(board=self.board)
+        ids = [a.id for a in Article.objects.public_in_board(self.board)]
+        order = ids.index(self.id)
+        if not order == 0:
+            return Article.objects.get(id=ids[order-1])
 
     def get_next(self):
-        pass
+        ids = [a.id for a in Article.objects.public_in_board(self.board)]
+        order = ids.index(self.id)
+        if not order == len(ids) - 1:
+            return Article.objects.get(id=ids[order+1])
 
 
 class Tag(models.Model):
