@@ -112,6 +112,7 @@ class Article(models.Model):
         verbose_name = ugettext_lazy('Article')
         verbose_name_plural = ugettext_lazy('Articles')
         ordering = ('-created_datetime',)
+        get_latest_by = "created_datetime"
 
     def __unicode__(self):
         return "Article:{0}".format(self.slug)

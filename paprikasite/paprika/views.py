@@ -1,7 +1,17 @@
-from django.shortcuts import get_object_or_404
+from django.views.generic.base import RedirectView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
+
 from paprika.models import Article, Board, Category, Tag
+
+
+class Home(RedirectView):
+    def get_redirect_url(self, board_slug):
+        latest_article = Article.objects.filter(board__slug=board_slug).latest()
+        return reverse('article_detail', args=(latest_article.id, latest_article.slug))
+
 
 class ArticleList(ListView):
     model = Article
