@@ -53,5 +53,35 @@ class CategoryDetail(DetailView):
         context = super(CategoryDetail, self).get_context_data(**kwargs)
         context['board'] = self.board
         context['articles'] = Article.objects.filter(category=context['category'], 
-        board=self.board)
+                board=self.board)
+        return context
+
+
+class TagList(ListView):
+    model = Tag
+    context_object_name = 'tags'
+
+    def get_queryset(self):
+        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        return Tag.objects.filter(article__board=self.board).distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super(TagList, self).get_context_data(**kwargs)
+        context['board'] = self.board
+        return context
+
+
+class TagDetail(DetailView):
+    model = Tag
+    context_object_name = 'tag'
+
+    def get_queryset(self):
+        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        return super(TagDetail, self).get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super(TagDetail, self).get_context_data(**kwargs)
+        context['board'] = self.board
+        context['articles'] = Article.objects.filter(tags=context['tag'], 
+                board=self.board)
         return context

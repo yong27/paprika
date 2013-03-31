@@ -1,0 +1,13 @@
+{% extends "paprika/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ board.title }}{% endblock %}
+
+{% block content %}
+<h4>Tag list</h4>
+<ul>
+{% for tag in tags %}
+    <li><a href="{% url 'tag_detail' board.slug tag.slug %}">{{ tag.slug }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
