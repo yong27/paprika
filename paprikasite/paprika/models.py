@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+from django.utils.encoding import python_2_unicode_compatible
 from datetime import datetime
 
 from django.utils.timezone import utc
@@ -7,6 +9,7 @@ from django.utils.translation import ugettext_lazy
 from django.core.urlresolvers import reverse
 
 
+@python_2_unicode_compatible
 class Board(models.Model):
     BOARD_TYPE_CHOICES = (
         ('blog', 'Blog'),
@@ -47,13 +50,14 @@ class Board(models.Model):
         verbose_name_plural = ugettext_lazy('Boards')
         ordering = ('title',)
 
-    def __unicode__(self):
+    def __str(self):
         return "[{0}] {1}".format(self.slug, self.title)
 
     def get_absolute_url(self):
         return reverse('board', args=(self.slug,))
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
     title = models.CharField(verbose_name=ugettext_lazy('Title'),
         help_text=ugettext_lazy('Category title, space is permitted.'),
@@ -70,7 +74,7 @@ class Category(models.Model):
         verbose_name_plural = ugettext_lazy('Categories')
         ordering = ('title',)
     
-    def __unicode__(self):
+    def __str__(self):
         return "[{0}] {1}".format(self.slug, self.title)
 
 
@@ -80,6 +84,7 @@ class ArticleManager(models.Manager):
         return Article.objects.filter(public_datetime__lte=now, board=board)
 
 
+@python_2_unicode_compatible
 class Article(models.Model):
     board = models.ForeignKey(Board, verbose_name=ugettext_lazy('Board'),
         help_text=ugettext_lazy('Board, this article is included in this board.'),
@@ -130,7 +135,7 @@ class Article(models.Model):
         ordering = ('-public_datetime', '-created_datetime',)
         get_latest_by = "public_datetime"
 
-    def __unicode__(self):
+    def __str__(self):
         return "Article:{0}".format(self.slug)
 
     def get_absolute_url(self):
@@ -149,6 +154,7 @@ class Article(models.Model):
             return Article.objects.get(id=ids[order+1])
 
 
+@python_2_unicode_compatible
 class Tag(models.Model):
     slug = models.CharField(verbose_name=ugettext_lazy('Slug'),
         help_text=ugettext_lazy('Tag slug, space is not permitted.'),
@@ -161,5 +167,5 @@ class Tag(models.Model):
         verbose_name_plural = ugettext_lazy('Tags')
         ordering = ('slug',)
 
-    def __unicode__(self):
+    def __str__(self):
         return "Tag:{0}".format(self.slug)
