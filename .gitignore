@@ -5,3 +5,4 @@ include
 .Python
 *.pyc
 paprika.db
+*.swp

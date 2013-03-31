@@ -1,6 +1,9 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy 
+
 
 class Board(models.Model):
     BOARD_TYPE_CHOICES = (
@@ -66,6 +69,11 @@ class Category(models.Model):
         return "[{0}] {1}".format(self.slug, self.title)
 
 
+class ArticleManager(models.Manager):
+    def public_in_board(self, board_slug):
+        return Article.objects.filter(public_datetime__lte=datetime.now, board__slug=board_slug)
+
+
 class Article(models.Model):
     board = models.ForeignKey(Board, verbose_name=ugettext_lazy('Board'),
         help_text=ugettext_lazy('Board, this article is included in this board.'),
@@ -108,14 +116,22 @@ class Article(models.Model):
         help_text=ugettext_lazy('Article tags, multiple tags are permitted'),
     )
 
+    objects = ArticleManager()
+
     class Meta:
         verbose_name = ugettext_lazy('Article')
         verbose_name_plural = ugettext_lazy('Articles')
-        ordering = ('-created_datetime',)
-        get_latest_by = "created_datetime"
+        ordering = ('-public_datetime', '-created_datetime',)
+        get_latest_by = "public_datetime"
 
     def __unicode__(self):
         return "Article:{0}".format(self.slug)
+
+    def get_previous(self):
+        Article.objects.filter(board=self.board)
+
+    def get_next(self):
+        pass
 
 
 class Tag(models.Model):
