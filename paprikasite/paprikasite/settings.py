@@ -150,20 +150,7 @@ LOGGING = {
     }
 }
 
-
-## add your settings here
-LANGUAGE_CODE = 'ko-KR'
-TIME_ZONE = 'Asia/Seoul'
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'paprika.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+## paprika settings 
 INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.admindocs',
@@ -171,3 +158,19 @@ INSTALLED_APPS += (
     'django.contrib.markup',
     'paprika',
 )
+HOME_BOARD_SLUG = 'enf'
+
+## add your settings here
+LANGUAGE_CODE = 'ko-KR'
+TIME_ZONE = 'Asia/Seoul'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '/home/yong27/work/paprika/paprikasite/paprika.db',                      # Or path to database file if using sqlite3.
+        #'NAME': 'paprika.db',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
