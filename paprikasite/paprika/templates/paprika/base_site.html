@@ -52,7 +52,7 @@
     <div class="masthead">
         <ul class="nav nav-pills pull-right">
             <li class="active"><a href="{% url 'article_list' board.slug %}">Home</a></li>
-            <li><a href="#">Category</a></li>
+	    <li><a href="{% url 'category_list' board.slug %}">Category</a></li>
             <li><a href="#">Tag</a></li>
             <li><a href="{% url 'article_list' board.slug %}">Archive</a></li>
         </ul>
