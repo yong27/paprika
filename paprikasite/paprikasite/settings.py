@@ -160,6 +160,7 @@ INSTALLED_APPS += (
 )
 HOME_BOARD_SLUG = 'enf'
 FB_COMMENT_APP_ID = None
+DISQUS_SHORTNAME = None
 
 
 ## add your settings here. below is yong27's setting
@@ -177,3 +178,4 @@ DATABASES = {
     }
 }
 FB_COMMENT_APP_ID = '191546750082'
+DISQUS_SHORTNAME = 'yong27-s2'
