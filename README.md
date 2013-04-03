@@ -17,7 +17,7 @@ Django based blog and web board system. It supports Python3.3
     $ source bin/activate
     $ pip install -r pip-requirements.txt
     $ cd paprikasite
-    $ vi paprikasite/settings.py   ## add your settings here
+    $ vi paprikasite/settings_yours.py   ## add your settings here. refer settings.py
     $ python manage.py syncdb
     $ python manage.py runserver
 
@@ -33,7 +33,7 @@ Django based blog and web board system. It supports Python3.3
     EOF
     $ pip install -r pip-requirements.txt
     $ cd paprikasite
-    $ vi paprikasite/settings.py   ## add your settings here
+    $ vi paprikasite/settings_yours.py   ## add your settings here. refer settings.py
     $ python manage.py syncdb
     $ python manage.py runserver
 

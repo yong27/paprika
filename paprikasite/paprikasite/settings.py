@@ -158,24 +158,23 @@ INSTALLED_APPS += (
     'django.contrib.markup',
     'paprika',
 )
-HOME_BOARD_SLUG = 'enf'
+HOME_BOARD_SLUG = None
 FB_COMMENT_APP_ID = None
 DISQUS_SHORTNAME = None
-
-
-## add your settings here. below is yong27's setting
 LANGUAGE_CODE = 'ko-KR'
 TIME_ZONE = 'Asia/Seoul'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/yong27/work/paprika/paprikasite/paprika.db',                      # Or path to database file if using sqlite3.
-        #'NAME': 'paprika.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'paprika.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-FB_COMMENT_APP_ID = '191546750082'
-DISQUS_SHORTNAME = 'yong27-s2'
+
+try:
+    from paprikasite.settings_yours import *  # your own settings file have to be in settings_yours.py
+except ImportError:
+    pass

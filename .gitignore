@@ -6,3 +6,4 @@ include
 *.pyc
 paprika.db
 *.swp
+settings_yours.py
