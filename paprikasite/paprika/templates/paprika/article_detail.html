@@ -1,5 +1,5 @@
 {% extends "paprika/base_site.html" %}
-{% load i18n markup comments %}
+{% load i18n markups comments %}
 
 {% block extrahead %}
 {{ block.super }}
@@ -18,7 +18,7 @@ $('#comment-tab a').click(function(e) {
 <p class="text-right"><a href="{% url 'category_detail' board.slug article.category.slug %}">{{ article.category.title }}</a> - <small><a href="{% url 'article_detail' article.id article.slug %}">{{ article.created_datetime }}</a></small></p>
 
 {% if article.board.markup == 'markdown' %}
-    {{ article.content|markdown:"safe" }}
+    {{ article.content|markdown }}
 {% else %}
     {{ article.content|safe }}
 {% endif %}
