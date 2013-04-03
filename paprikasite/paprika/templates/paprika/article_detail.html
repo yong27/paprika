@@ -139,8 +139,6 @@ $('#comment-tab a').click(function(e) {
 </div>
 <hr />
 
-{{ request.get_pull_path }}
-
 <p>
 {% if article.get_previous %}
 <strong>Previous article</strong> <a href="{{ article.get_previous.get_absolute_url }}">{{ article.get_previous.title }}</a>...

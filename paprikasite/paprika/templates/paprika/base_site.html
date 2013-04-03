@@ -43,6 +43,22 @@
 {{ block.super }}
 <script src="{% static 'paprika/js/jquery-1.9.1.min.js' %}"></script>
 <script src="{% static 'paprika/bootstrap/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var path = window.location.pathname;
+    var set_flag = false;
+    $("ul.menu li a").each(function() {
+        var menu_url = $(this).attr('href');
+        if(menu_url != '/' && path.indexOf(menu_url) > -1) {
+            $(this).parent().addClass("active");
+            set_flag = true;
+        }
+    });
+    if(set_flag == false) {
+        $('li.home').addClass('active');
+    }
+});
+</script>
 {% endblock %}
 
 {% block title %}{{ title }} | {% trans 'Paprika' %}{% endblock %}
@@ -50,8 +66,8 @@
 {% block body %}
 <div class="container-narrow">
     <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+        <ul class="menu nav nav-pills pull-right">
+            <li class="home"><a href="{% url 'home' %}">Home</a></li>
 	    <li><a href="{% url 'category_list' board.slug %}">Category</a></li>
             <li><a href="{% url 'tag_list' board.slug %}">Tag</a></li>
             <li><a href="{% url 'article_list' board.slug %}">Archive</a></li>
