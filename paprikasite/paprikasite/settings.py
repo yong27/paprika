@@ -161,8 +161,6 @@ INSTALLED_APPS += (
 HOME_BOARD_SLUG = None
 FB_COMMENT_APP_ID = None
 DISQUS_SHORTNAME = None
-LANGUAGE_CODE = 'ko-KR'
-TIME_ZONE = 'Asia/Seoul'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.

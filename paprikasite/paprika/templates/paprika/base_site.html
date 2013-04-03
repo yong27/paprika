@@ -47,9 +47,10 @@
 $(document).ready(function() {
     var path = window.location.pathname;
     var set_flag = false;
+    var home_url = "{% url 'home' %}";
     $("ul.menu li a").each(function() {
         var menu_url = $(this).attr('href');
-        if(menu_url != '/' && path.indexOf(menu_url) > -1) {
+        if(menu_url != home_url && path.indexOf(menu_url) > -1) {
             $(this).parent().addClass("active");
             set_flag = true;
         }
