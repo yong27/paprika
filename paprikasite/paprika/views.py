@@ -9,6 +9,8 @@ from paprika.models import Article, Board, Category, Tag
 
 
 class HomeView(RedirectView):
+    permanent = False
+
     def get_redirect_url(self):
         board = get_object_or_404(Board, slug=settings.HOME_BOARD_SLUG)
         latest_article = Article.objects.public_in_board(board).latest()
@@ -16,6 +18,8 @@ class HomeView(RedirectView):
 
 
 class BoardView(RedirectView):
+    permanent = False
+
     def get_redirect_url(self, board_slug):
         board = get_object_or_404(Board, slug=board_slug)
         latest_article = Article.objects.public_in_board(board).latest()
