@@ -169,3 +169,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return "Tag:{0}".format(self.slug)
+
+    def count_articles(self):
+        return Article.objects.filter(tags=self).count() 
+
