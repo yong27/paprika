@@ -1,5 +1,5 @@
 {% extends "paprika/base_site.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
 
 {% block title %}{{ board.title }}{% endblock %}
 
@@ -7,7 +7,7 @@
 <h4>Category list</h4>
 <ul>
 {% for category in categories %}
-    <li><a href="{% url 'category_detail' board.slug category.slug %}">{{ category.title }}</a></li>
+<li><a href="{% url 'category_detail' board.slug category.slug %}">{{ category.title }}</a> <a href="{% url 'article_category_rss' board.slug category.slug %}"><img src="{% static 'paprika/image/feed-icon-16x16.png' %}" /></a></li>
 {% endfor %}
 </ul>
 {% endblock %}

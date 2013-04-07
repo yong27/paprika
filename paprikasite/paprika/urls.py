@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from paprika.views import (ArticleList, ArticleDetail, CategoryList, CategoryDetail,
         TagList, TagDetail, HomeView, BoardView)
-from paprika.feeds import ArticleFeed
+from paprika.feeds import ArticleFeed, ArticleByCategoryFeed
 
 urlpatterns = patterns('',
     url(r'^$',
@@ -19,6 +19,8 @@ urlpatterns = patterns('',
         CategoryList.as_view(), name='category_list'),
     url(r'^(?P<board_slug>[-\w]+)/category/(?P<slug>[-\w]+)/$', 
         CategoryDetail.as_view(), name='category_detail'),
+    url(r'^(?P<board_slug>[-\w]+)/category/(?P<slug>[-\w]+)/rss/$', 
+        ArticleByCategoryFeed(), name='article_category_rss'),
 
     url(r'^(?P<board_slug>[-\w]+)/tag/$', 
         TagList.as_view(), name='tag_list'),
