@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.utils.safestring import mark_safe
 
 from paprika.models import Article, Board, Category, Tag
 
@@ -32,7 +33,7 @@ class PaprikaExtraContext(ContextMixin):
         context.update({
             'fb_comment_app_id': settings.FB_COMMENT_APP_ID,
             'disqus_shortname': settings.DISQUS_SHORTNAME,
-            'extra_head_html': settings.EXTRA_HEAD_HTML,
+            'extra_head_html': mark_safe(settings.EXTRA_HEAD_HTML),
             'http_host': self.request.META['HTTP_HOST'],
         })
         if 'board_slug' in self.kwargs:
