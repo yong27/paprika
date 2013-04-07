@@ -34,104 +34,63 @@ class PaprikaExtraContext(ContextMixin):
             'disqus_shortname': settings.DISQUS_SHORTNAME,
             'extra_head_html': settings.EXTRA_HEAD_HTML,
             'http_host': self.request.META['HTTP_HOST'],
-            'my_test': 'Hello world',
         })
-        if 'board_slug' in kwargs:
-            context['board'] = get_object_or_404(Board, slug=kwargs['board_slug'])
+        if 'board_slug' in self.kwargs:
+            context['board'] = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        elif 'article' in context:
+            context['board'] = context['article'].board
         return context
 
 
-class ArticleList(ListView):
+class ArticleList(ListView, PaprikaExtraContext):
     model = Article
     context_object_name = 'articles'
 
     def get_queryset(self):
-        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
-        return Article.objects.public_in_board(self.board)
-
-    def get_context_data(self, **kwargs):
-        context = super(ArticleList, self).get_context_data(**kwargs)
-        context['board'] = self.board
-        return context
+        board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        return Article.objects.public_in_board(board)
 
 
-class _ArticleList(ListView):
-    model = Article
-    context_object_name = 'articles'
-
-    def get_queryset(self):
-        context = super(ArticleList, self).get_context_data(**self.kwargs)
-        return Article.objects.public_in_board(context['board'])
-
-
-class ArticleDetail(DetailView):
+class ArticleDetail(DetailView, PaprikaExtraContext):
     model = Article
     context_object_name = 'article'
 
-    def get_context_data(self, **kwargs):
-        context = super(ArticleDetail, self).get_context_data(**kwargs)
-        context['board'] = context['article'].board
-        context['fb_comment_app_id'] = settings.FB_COMMENT_APP_ID
-        context['disqus_shortname'] = settings.DISQUS_SHORTNAME
-        context['http_host'] = self.request.META['HTTP_HOST']
-        return context
 
-
-class CategoryList(ListView):
+class CategoryList(ListView, PaprikaExtraContext):
     model = Category
     context_object_name = 'categories'
 
     def get_queryset(self):
-        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
-        return Category.objects.filter(article__board=self.board)
-
-    def get_context_data(self, **kwargs):
-        context = super(CategoryList, self).get_context_data(**kwargs)
-        context['board'] = self.board
-        return context
+        board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        return Category.objects.filter(article__board=board).distinct()
 
 
-class CategoryDetail(DetailView):
+class CategoryDetail(DetailView, PaprikaExtraContext):
     model = Category
     context_object_name = 'category'
 
-    def get_queryset(self):
-        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
-        return super(CategoryDetail, self).get_queryset()
-
     def get_context_data(self, **kwargs):
         context = super(CategoryDetail, self).get_context_data(**kwargs)
-        context['board'] = self.board
         context['articles'] = Article.objects.filter(category=context['category'], 
-                board=self.board)
+                board=context['board'])
         return context
 
 
-class TagList(ListView):
+class TagList(ListView, PaprikaExtraContext):
     model = Tag
     context_object_name = 'tags'
 
     def get_queryset(self):
-        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
-        return Tag.objects.filter(article__board=self.board).distinct()
-
-    def get_context_data(self, **kwargs):
-        context = super(TagList, self).get_context_data(**kwargs)
-        context['board'] = self.board
-        return context
+        board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        return Tag.objects.filter(article__board=board).distinct()
 
 
-class TagDetail(DetailView):
+class TagDetail(DetailView, PaprikaExtraContext):
     model = Tag
     context_object_name = 'tag'
 
-    def get_queryset(self):
-        self.board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
-        return super(TagDetail, self).get_queryset()
-
     def get_context_data(self, **kwargs):
         context = super(TagDetail, self).get_context_data(**kwargs)
-        context['board'] = self.board
         context['articles'] = Article.objects.filter(tags=context['tag'], 
-                board=self.board)
+                board=context['board'])
         return context
