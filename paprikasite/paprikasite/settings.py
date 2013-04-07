@@ -150,6 +150,7 @@ LOGGING = {
     }
 }
 
+
 ## paprika settings 
 INSTALLED_APPS += (
     'django.contrib.admin',
@@ -161,6 +162,8 @@ INSTALLED_APPS += (
 HOME_BOARD_SLUG = None
 FB_COMMENT_APP_ID = None
 DISQUS_SHORTNAME = None
+EXTRA_HEAD_HTML = """
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -172,6 +175,8 @@ DATABASES = {
     }
 }
 
+
+## user specific settings
 try:
     from paprikasite.settings_yours import *  # your own settings file have to be in settings_yours.py
 except ImportError:

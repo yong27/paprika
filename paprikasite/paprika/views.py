@@ -1,4 +1,4 @@
-from django.views.generic.base import RedirectView
+from django.views.generic.base import RedirectView, ContextMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
@@ -26,6 +26,21 @@ class BoardView(RedirectView):
         return reverse('article_detail', args=(latest_article.id, latest_article.slug))
 
 
+class PaprikaExtraContext(ContextMixin):
+    def get_context_data(self, **kwargs):
+        context = super(PaprikaExtraContext, self).get_context_data(**kwargs)
+        context.update({
+            'fb_comment_app_id': settings.FB_COMMENT_APP_ID,
+            'disqus_shortname': settings.DISQUS_SHORTNAME,
+            'extra_head_html': settings.EXTRA_HEAD_HTML,
+            'http_host': self.request.META['HTTP_HOST'],
+            'my_test': 'Hello world',
+        })
+        if 'board_slug' in kwargs:
+            context['board'] = get_object_or_404(Board, slug=kwargs['board_slug'])
+        return context
+
+
 class ArticleList(ListView):
     model = Article
     context_object_name = 'articles'
@@ -38,6 +53,15 @@ class ArticleList(ListView):
         context = super(ArticleList, self).get_context_data(**kwargs)
         context['board'] = self.board
         return context
+
+
+class _ArticleList(ListView):
+    model = Article
+    context_object_name = 'articles'
+
+    def get_queryset(self):
+        context = super(ArticleList, self).get_context_data(**self.kwargs)
+        return Article.objects.public_in_board(context['board'])
 
 
 class ArticleDetail(DetailView):
