@@ -8,7 +8,7 @@
 
 <ul>
     {% for article in articles %}
-    <li><a href="{% url 'article_detail' article.id article.slug %}">{{ article.title }}</a></li>
+    <li><small>{{ article.public_datetime }}</small> <a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
     {% endfor %}
 </ul>
 
