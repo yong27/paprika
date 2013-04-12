@@ -1,0 +1,18 @@
+{% extends "paprika/base_site.html" %}
+{% load i18n bootstrap_toolkit %}
+
+{% block title %}{{ board.title }}{% endblock %}
+
+{% block content %}
+<h4>Add Category
+    <a href="{% url 'category_list' board.slug %}" class="btn btn-primary btn-small">{% trans 'list' %}</a>
+</h4>
+
+<form action="." method="post" class="form-horizontal">{% csrf_token %}
+    {{ form|as_bootstrap }}
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="{% trans 'Save' %}" />
+        <input class="btn" type="reset" value="{% trans 'Reset' %}" />
+    </div>
+</form>
+{% endblock %}
