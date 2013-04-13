@@ -4,11 +4,18 @@
 {% block title %}{{ board.title }}{% endblock %}
 
 {% block content %}
-<h4>Article list</h4>
+<h4>Article list
+    {% if user.is_superuser %}
+    <a href="{% url 'article_create' board.slug %}" class="btn btn-primary btn-small">{% trans 'Create' %}</a>
+    {% endif %}
+</h4>
 {{ my_test }}
 <ul>
     {% for article in articles %}
-    <li><small>{{ article.public_datetime }}</small> <a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+    <li>
+        <small>{{ article.public_datetime|default:'Does not published' }}</small> 
+        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}

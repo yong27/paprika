@@ -158,8 +158,9 @@ INSTALLED_APPS += (
     'django.contrib.comments',
     'django.contrib.markup',
     'paprika',
+    'bootstrap_toolkit',
 )
-HOME_BOARD_SLUG = None
+HOME_BOARD_SLUG = 'freelyageha'
 FB_COMMENT_APP_ID = None
 DISQUS_SHORTNAME = None
 EXTRA_HEAD_HTML = """

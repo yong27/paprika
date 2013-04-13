@@ -23,7 +23,7 @@ class HomeView(RedirectView):
             return reverse('article_detail',
                     args=(latest_article.id, latest_article.slug))
         except ObjectDoesNotExist:
-            return reverse('article_create', args=(board.slug,))
+            return reverse('article_list', args=(board.slug,))
 
 
 class BoardView(RedirectView):

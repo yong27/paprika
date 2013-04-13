@@ -5,8 +5,10 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import user_passes_test
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect 
+from django.utils.decorators import method_decorator
 
 from paprika.models import Article, Board
 from paprika.views import PaprikaExtraContext
@@ -17,22 +19,34 @@ class ArticleList(ListView, PaprikaExtraContext):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        board = get_object_or_404(Board,
+            slug=self.kwargs['board_slug'])
+        if self.request.user.is_superuser:
+            return Article.objects.all()
         return Article.objects.public_in_board(board)
 
 
 class ArticleCreate(CreateView, PaprikaExtraContext):
     model = Article
 
+    @method_decorator(user_passes_test(lambda u: u.is_staff or u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ArticleCreate, self).dispatch(
+                request, *args, **kwargs)
+
 
 class ArticlePublish(RedirectView):
     permanent = False
 
+    @method_decorator(user_passes_test(lambda u: u.is_staff or u.is_superuser))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ArticlePublish, self).dispatch(
+                request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
-        article_slug = request.POST.get('slug')
         do_publish = request.POST.get('publish')
         article = get_object_or_404(Article,
-            slug=article_slug, board__slug=kwargs['board_slug'])
+            slug=kwargs['slug'], id=kwargs['object_id'])
         if do_publish == 'true':
             article.public_datetime = datetime.datetime.now()
         else:
@@ -46,5 +60,4 @@ class ArticlePublish(RedirectView):
 class ArticleDetail(DetailView, PaprikaExtraContext):
     model = Article
     context_object_name = 'article'
-
 

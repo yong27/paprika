@@ -4,10 +4,18 @@
 {% block title %}{{ board.title }}{% endblock %}
 
 {% block content %}
-<h4>Category list</h4>
+<h4>Category list
+{% if user.is_superuser %}
+<a href="{% url 'category_create' board.slug %}" class="btn btn-primary btn-small">{% trans 'Add' %}</a>
+{% endif %}
+</h4>
+
 <ul>
 {% for category in categories %}
-<li><a href="{% url 'category_detail' board.slug category.slug %}">{{ category.title }}</a> <a href="{% url 'article_category_rss' board.slug category.slug %}"><img src="{% static 'paprika/image/feed-icon-16x16.png' %}" /></a></li>
+<li>
+    <a href="{% url 'category_detail' board.slug category.slug %}">{{ category.title }} ({{ category.get_published_article_count }})</a>
+    <a href="{% url 'article_category_rss' board.slug category.slug %}"><img src="{% static 'paprika/image/feed-icon-16x16.png' %}" /></a>
+</li>
 {% endfor %}
 </ul>
 {% endblock %}

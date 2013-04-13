@@ -14,8 +14,26 @@ $('#comment-tab a').click(function(e) {
 {% block title %}{{ article.title }} | {{ board.title }}{% endblock %}
 
 {% block content %}
-<h4>{{ article.title }}</h4>
-<p class="text-right"><a href="{% url 'category_detail' board.slug article.category.slug %}">{{ article.category.title }}</a> - <small><a href="{% url 'article_detail' article.id article.slug %}">{{ article.created_datetime }}</a></small></p>
+<h4>{{ article.title }}
+    {% if user.is_superuser %}
+    <form action="{% url 'article_publish' article.id article.slug %}" method="post">{% csrf_token %}
+        {% if article.public_datetime %}
+        <input type="hidden" name="publish" value="false"/>
+        <button class="btn btn-danger btn-small">{% trans 'UnPublish' %}</a>
+        {% else %}
+        <input type="hidden" name="publish" value="true"/>
+        <button class="btn btn-primary btn-small">{% trans 'Publish' %}</a>
+        {% endif %}
+    </form>
+    {% endif %}
+</h4>
+
+<p class="text-right">
+    {% if article.category %}
+    <a href="{% url 'category_detail' board.slug article.category.slug %}">{{ article.category.title }}</a> - 
+    {% endif %}
+    <small><a href="{% url 'article_detail' article.id article.slug %}">{{ article.created_datetime }}</a></small>
+</p>
 
 {% if article.board.markup == 'markdown' %}
     {{ article.content|markdown }}
