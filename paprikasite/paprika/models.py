@@ -78,10 +78,6 @@ class Category(models.Model):
     def __str__(self):
         return "[{0}] {1}".format(self.slug, self.title)
 
-    def get_absolute_url(self):
-        return reverse('category_detail',
-            args=(settings.HOME_BOARD_SLUG, self.slug))
-
     def get_published_article_count(self):
         now = datetime.utcnow().replace(tzinfo=utc)
         return self.article_set.filter(

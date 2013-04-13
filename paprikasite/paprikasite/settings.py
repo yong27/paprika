@@ -160,7 +160,7 @@ INSTALLED_APPS += (
     'paprika',
     'bootstrap_toolkit',
 )
-HOME_BOARD_SLUG = 'freelyageha'
+HOME_BOARD_SLUG = ''
 FB_COMMENT_APP_ID = None
 DISQUS_SHORTNAME = None
 EXTRA_HEAD_HTML = """
