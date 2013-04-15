@@ -14,6 +14,7 @@ $('#comment-tab a').click(function(e) {
 {% block title %}{{ article.title }} | {{ board.title }}{% endblock %}
 
 {% block content %}
+{% if article.public_datetime %}
 <h4>{{ article.title }}
     {% if user.is_superuser %}
     <form action="{% url 'article_publish' article.id article.slug %}" method="post">{% csrf_token %}
@@ -163,6 +164,11 @@ $('#comment-tab a').click(function(e) {
 {% endif %}
 {% if article.get_next %}
 ...<strong>Next article</strong> <a href="{{ article.get_next.get_absolute_url }}">{{ article.get_next.title }}</a>
+{% endif %}
+
+
+{% else %}
+{% trans "This post is not published yet" %}
 {% endif %}
 
 {% endblock %}

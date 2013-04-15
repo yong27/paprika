@@ -32,9 +32,8 @@ class CategoryDetail(DetailView, PaprikaExtraContext):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetail, self).get_context_data(**kwargs)
-        context['articles'] = Article.objects.filter(
-                category=context['category'], 
-                board=context['board'])
+        context['articles'] = Article.objects.public_in_board(context['board']
+                ).filter(category=context['category'])
         return context
 
 

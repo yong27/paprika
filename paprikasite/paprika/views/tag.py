@@ -12,7 +12,8 @@ class TagList(ListView, PaprikaExtraContext):
 
     def get_queryset(self):
         board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
-        return Tag.objects.filter(article__board=board).distinct()
+        return Tag.objects.filter(article__board=board, 
+                article__public_datetime__isnull=False).distinct()
 
 
 class TagDetail(DetailView, PaprikaExtraContext):
@@ -21,6 +22,6 @@ class TagDetail(DetailView, PaprikaExtraContext):
 
     def get_context_data(self, **kwargs):
         context = super(TagDetail, self).get_context_data(**kwargs)
-        context['articles'] = Article.objects.filter(tags=context['tag'], 
-                board=context['board'])
+        context['articles'] = Article.objects.public_in_board(context['board']
+                ).filter(tags=context['tag'])
         return context
