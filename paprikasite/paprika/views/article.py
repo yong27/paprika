@@ -2,7 +2,7 @@ import datetime
 
 from django.views.generic.base import RedirectView
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
@@ -19,11 +19,13 @@ class ArticleList(ListView, PaprikaExtraContext):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        board = get_object_or_404(Board,
-            slug=self.kwargs['board_slug'])
-        if self.request.user.is_superuser:
-            return Article.objects.all()
+        board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
         return Article.objects.public_in_board(board)
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleList, self).get_context_data(**kwargs)
+        context['unpublished_articles'] = Article.objects.filter(public_datetime__isnull=True)
+        return context
 
 
 class ArticleCreate(CreateView, PaprikaExtraContext):
@@ -33,6 +35,10 @@ class ArticleCreate(CreateView, PaprikaExtraContext):
     def dispatch(self, request, *args, **kwargs):
         return super(ArticleCreate, self).dispatch(
                 request, *args, **kwargs)
+
+
+class ArticleUpdate(UpdateView, PaprikaExtraContext):
+    model = Article
 
 
 class ArticlePublish(RedirectView):

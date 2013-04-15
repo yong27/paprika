@@ -9,13 +9,24 @@
     <a href="{% url 'article_create' board.slug %}" class="btn btn-primary btn-small">{% trans 'Create' %}</a>
     {% endif %}
 </h4>
-{{ my_test }}
 <ul>
     {% for article in articles %}
     <li>
-        <small>{{ article.public_datetime|default:'Does not published' }}</small> 
+        <small>{{ article.public_datetime }}</small> 
         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
     </li>
     {% endfor %}
 </ul>
+
+{% if user.is_superuser %}
+<h5>Unpublished</h5>
+<ul>
+    {% for article in unpublished_articles %}
+    <li>
+        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a> 
+        (<a href="{% url 'article_update' article.id article.slug %}">Edit</a>)
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

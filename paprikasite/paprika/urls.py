@@ -4,7 +4,7 @@ from paprika.views import HomeView, BoardView
 from paprika.views.category import (CategoryList,
         CategoryCreate, CategoryDetail,)
 from paprika.views.article import (ArticleList, ArticlePublish,
-        ArticleCreate, ArticleDetail)
+        ArticleCreate, ArticleDetail, ArticleUpdate)
 from paprika.views.tag import TagList, TagDetail
 from paprika.feeds import ArticleFeed, ArticleByCategoryFeed
 
@@ -27,6 +27,8 @@ urlpatterns = patterns('',
         ArticleDetail.as_view(), name='article_detail'),
     url(r'^(?P<object_id>\d+)/(?P<slug>[-\w]+)/publish/$', 
         ArticlePublish.as_view(), name='article_publish'),
+    url(r'^(?P<object_id>\d+)/(?P<slug>[-\w]+)/update/$', 
+        ArticleUpdate.as_view(), name='article_update'),
 
 
 ) + patterns('paprika.views.category',
