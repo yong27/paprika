@@ -14,7 +14,7 @@ $('#comment-tab a').click(function(e) {
 {% block title %}{{ article.title }} | {{ board.title }}{% endblock %}
 
 {% block content %}
-{% if article.public_datetime %}
+{% if user.is_superuser or article.public_datetime %}
 <h4>{{ article.title }}
     {% if user.is_superuser %}
     <form action="{% url 'article_publish' article.id article.slug %}" method="post">{% csrf_token %}
