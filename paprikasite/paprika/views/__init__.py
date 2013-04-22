@@ -43,6 +43,7 @@ class PaprikaExtraContext(ContextMixin):
             'disqus_shortname': settings.DISQUS_SHORTNAME,
             'extra_head_html': mark_safe(settings.EXTRA_HEAD_HTML),
             'http_host': self.request.META['HTTP_HOST'],
+            'user_paprika_comment': settings.USE_PAPRIKA_COMMENT,
             'user': self.request.user,
         })
         if 'board_slug' in self.kwargs:

@@ -161,6 +161,7 @@ INSTALLED_APPS += (
     'bootstrap_toolkit',
 )
 HOME_BOARD_SLUG = ''
+USE_PAPRIKA_COMMENT = True
 FB_COMMENT_APP_ID = None
 DISQUS_SHORTNAME = None
 EXTRA_HEAD_HTML = """
