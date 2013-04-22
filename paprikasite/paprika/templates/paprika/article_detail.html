@@ -48,14 +48,14 @@
 {% include "paprika/comment.html" %}
 <hr />
 
-<p>
 {% if article.get_previous %}
-<strong>Previous article</strong> <a href="{{ article.get_previous.get_absolute_url }}">{{ article.get_previous.title }}</a>...
+<p align="left">
+<a class="basic-alignment left" href="{{ article.get_previous.get_absolute_url }}">« {{ article.get_previous.title }}</a></p>
 {% endif %}
 {% if article.get_next %}
-...<strong>Next article</strong> <a href="{{ article.get_next.get_absolute_url }}">{{ article.get_next.title }}</a>
+<p align="right"><a class="basic-alignment right" href="{{ article.get_next.get_absolute_url }}">{{ article.get_next.title }} »</a></p>
 {% endif %}
-
+</p>
 
 {% else %}
 {% trans "This post is not published yet" %}
