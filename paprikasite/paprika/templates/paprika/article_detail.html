@@ -1,5 +1,10 @@
 {% extends "paprika/base_site.html" %}
-{% load i18n markups comments %}
+{% load i18n markups comments staticfiles %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'paprika/css/pygments.css' %}" />
+{% endblock %}
 
 {% block extrahead %}
 {{ block.super }}

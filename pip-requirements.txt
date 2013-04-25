@@ -1,3 +1,4 @@
 Django==1.5.1
 markdown2==2.1.0
 django-bootstrap-toolkit=2.10.6
+pigments==1.6
