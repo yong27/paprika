@@ -14,10 +14,5 @@ def markdown(value, arg=''):
             raise template.TemplateSyntaxError("Error in 'markdown' filter: The Python markdown2 library isn't installed.")
         return force_text(value)
     else:
-        return mark_safe(markdown2.markdown(force_text(value), extras=[
-                'fenced-code-blocks', 
-                'cuddled-lists', 
-                'footnotes', 
-                'markdown-in-html', 
-                'pyshell', 'smart-pants', 'wiki-tables',
-                ]))
+        return mark_safe(markdown2.markdown(force_text(value)))
+
