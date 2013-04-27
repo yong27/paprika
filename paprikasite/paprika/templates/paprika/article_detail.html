@@ -38,6 +38,10 @@
 {% endif %}
 
 <br />
+<p class="text-right">
+<small>Posted by {{ article.registrator.get_full_name }} ({{ article.registrator.username }})</small>
+</p>
+
 <p><strong>{% trans 'Tags' %}:</strong>
 {% for tag in article.tags.all %}
     <a href="{% url 'tag_detail' board.slug tag.slug %}">{{ tag.slug }}</a>{% if not forloop.last %}, {% endif %}
