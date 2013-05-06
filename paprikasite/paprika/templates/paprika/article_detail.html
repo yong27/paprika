@@ -11,19 +11,22 @@
 
 {% block content %}
 {% if user.is_superuser or article.public_datetime %}
-<h4>{{ article.title }}
-    {% if user.is_superuser %}
-    <form action="{% url 'article_publish' article.id article.slug %}" method="post">{% csrf_token %}
-        {% if article.public_datetime %}
-        <input type="hidden" name="publish" value="false"/>
-        <button class="btn btn-danger btn-small">{% trans 'UnPublish' %}</a>
-        {% else %}
-        <input type="hidden" name="publish" value="true"/>
-        <button class="btn btn-primary btn-small">{% trans 'Publish' %}</a>
-        {% endif %}
-    </form>
+
+{% if user.is_superuser %}
+<form action="{% url 'article_publish' article.id article.slug %}" method="post">{% csrf_token %}
+    {% if article.public_datetime %}
+    <input type="hidden" name="publish" value="false"/>
+    <button class="btn btn-danger btn-small">{% trans 'UnPublish' %}</button>
+    {% else %}
+    <input type="hidden" name="publish" value="true"/>
+    <button class="btn btn-primary btn-small">{% trans 'Publish' %}</button>
     {% endif %}
-</h4>
+    <a class="btn btn-small" href="{% url 'article_update' board.id article.slug %}">{% trans 'Edit' %}</a>
+    <a class="btn btn-primary btn-small" href="{% url 'article_create' board.slug %}">{% trans 'Create' %}</a>
+</form>
+{% endif %}
+
+<h4>{{ article.title }}</h4>
 
 <p class="text-right">
     {% if article.category %}

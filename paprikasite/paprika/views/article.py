@@ -1,4 +1,5 @@
 import datetime
+import re
 
 from django import forms
 from django.views.generic.base import RedirectView
@@ -10,8 +11,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect 
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy 
 
-from paprika.models import Article, Board
+from paprika.models import Article, Board, Tag
 from paprika.views import PaprikaExtraContext
 
 
@@ -30,6 +32,10 @@ class ArticleList(ListView, PaprikaExtraContext):
 
 
 class ArticleForm(forms.ModelForm):
+    tags = forms.CharField(required=False,
+            help_text = ugettext_lazy(
+                'Seperate by comma(",") about each tag'))
+
     class Meta:
         model = Article
         exclude = ('board', 'public_datetime', 'registrator',)
@@ -45,8 +51,7 @@ class ArticleForm(forms.ModelForm):
         content.widget.attrs['class'] = 'span11'
         content.widget.attrs['rows'] = '15'
         tags = self.fields.get('tags')
-        tags.widget=forms.TextInput(
-                attrs={'class':'span11'})
+        tags.widget.attrs['class'] = 'span11'
 
         for field_name in self.fields:
             field = self.fields.get(field_name)
@@ -56,6 +61,17 @@ class ArticleForm(forms.ModelForm):
                     forms.Textarea]:
                 field.widget.attrs['placeholder'] = field.help_text
             field.help_text = '*' if field.required else ''
+
+    def save(self, commit=True):
+        article = super(ArticleForm, self).save(commit=False)
+        for slug in self.cleaned_data['tags'].split(','):
+            slug = re.sub('^\s+|\s+$' ,'', slug)
+            tag, created = Tag.objects.get_or_create(
+                    slug=slug)
+            article.tags.add(tag)
+        if commit:
+            article.save()
+        return article
 
 
 class ArticleCreate(CreateView, PaprikaExtraContext):
@@ -77,6 +93,7 @@ class ArticleCreate(CreateView, PaprikaExtraContext):
 
 
 class ArticleUpdate(UpdateView, PaprikaExtraContext):
+    form_class = ArticleForm
     model = Article
 
 
