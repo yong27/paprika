@@ -9,14 +9,6 @@
 {% endif %}
 
 <h4>Article list</h4>
-<ul>
-    {% for article in articles %}
-    <li>
-        <small>{{ article.public_datetime }}</small> 
-        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
 
 {% if user.is_superuser and unpublished_articles %}
 <h5>Unpublished</h5>
@@ -24,9 +16,29 @@
     {% for article in unpublished_articles %}
     <li>
         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a> 
-        (<a href="{% url 'article_update' article.id article.slug %}">Edit</a>)
+        <small>(<a href="{% url 'article_update' article.id article.slug %}">Edit</a>)</small>
     </li>
     {% endfor %}
 </ul>
 {% endif %}
+
+
+{% regroup articles by public_datetime|date:"m" as articles_by_month %}
+{% for group in articles_by_month %}
+<h5>{{ group.list.0.public_datetime|date:"F, Y" }}</h5>
+<ul>
+    {% for article in group.list %}
+    <li>
+        <small>{{ article.public_datetime|date:"m-d, G:i" }}</small> 
+        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+        {% if user.is_superuser %}
+            <small>(<a href="{% url 'article_update' article.id article.slug %}">Edit</a>)</small>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+ 
+{% endfor %}
+
+
 {% endblock %}
