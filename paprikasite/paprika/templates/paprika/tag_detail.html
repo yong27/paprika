@@ -8,7 +8,7 @@
 
 <ul>
     {% for article in articles %}
-    <li><small>{{ article.public_datetime }}</small> <a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+    <li><small>{{ article.public_datetime|date:"Y-m-d, G:i" }}</small> <a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
     {% endfor %}
 </ul>
 
