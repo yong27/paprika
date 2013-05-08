@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-08 23:17+0900\n"
+"POT-Creation-Date: 2013-05-08 23:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hyungyong Kim <yong27@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,14 +186,6 @@ msgstr "편집"
 msgid "Create"
 msgstr "생성"
 
-#: templates/paprika/article_detail.html:46
-#, python-format
-msgid ""
-"Posted by %(article.registrator.get_full_name)s (%(article.registrator."
-"username)s)"
-msgstr ""
-"%(article.registrator.get_full_name)s (%(article.registrator.username)s) 씀"
-
 #: templates/paprika/article_detail.html:71
 msgid "This post is not published yet"
 msgstr "이 글은 아직 공개되지 않았습니다."
@@ -259,3 +251,4 @@ msgstr "태그 목록"
 #: views/article.py:37
 msgid "Seperate by comma(\",\") about each tag"
 msgstr "각 테그들을 콤마(,)로 구분하여 입력하세요."
+
