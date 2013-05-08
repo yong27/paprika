@@ -4,7 +4,7 @@
 {% block title %}{{ board.title }}{% endblock %}
 
 {% block content %}
-<h4>Add Category
+<h4>{% trans "Create category" %}
     <a href="{% url 'category_list' board.slug %}" class="btn btn-primary btn-small">{% trans 'list' %}</a>
 </h4>
 

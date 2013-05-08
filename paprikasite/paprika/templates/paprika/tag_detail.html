@@ -4,7 +4,7 @@
 {% block title %}{{ board.title }}{% endblock %}
 
 {% block content %}
-<h4>Tag: {{ tag.slug }}</h4>
+<h4>{% trans "Tag" %}: {{ tag.slug }}</h4>
 
 <ul>
     {% for article in articles %}

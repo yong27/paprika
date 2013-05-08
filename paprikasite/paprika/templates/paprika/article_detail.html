@@ -43,7 +43,7 @@
 
 <br />
 <p class="text-right">
-<small>Posted by {{ article.registrator.get_full_name }} ({{ article.registrator.username }})</small>
+<small>{% blocktrans %}Posted by {{ article.registrator.get_full_name }} ({{ article.registrator.username }}){% endblocktrans %}</small>
 </p>
 
 <p><strong>{% trans 'Tags' %}:</strong>

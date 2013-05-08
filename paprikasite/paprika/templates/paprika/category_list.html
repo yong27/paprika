@@ -4,7 +4,7 @@
 {% block title %}{{ board.title }}{% endblock %}
 
 {% block content %}
-<h4>Category list
+<h4>{% trans "Category list" %}
 {% if user.is_superuser %}
 <a href="{% url 'category_create' board.slug %}" class="btn btn-primary btn-small">{% trans 'Add' %}</a>
 {% endif %}

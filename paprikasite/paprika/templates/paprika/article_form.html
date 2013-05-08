@@ -6,7 +6,7 @@
 {% block content %}
 <a href="{% url 'article_list' board.slug %}" class="btn btn-primary btn-small">{% trans 'List' %}</a>
 
-<h4>{% trans 'Add Article' %}</h4>
+<h4>{% trans 'Create article' %}</h4>
 
 <form action="." method="post" class="form-horizontal">{% csrf_token %}
     {{ form|as_bootstrap }}

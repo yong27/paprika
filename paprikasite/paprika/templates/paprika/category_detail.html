@@ -4,7 +4,7 @@
 {% block title %}{{ board.title }}{% endblock %}
 
 {% block content %}
-<h4>Category: {{ category.title }} 
+<h4>{% trans "Category" %}: {{ category.title }} 
     <a href="{% url 'article_category_rss' board.slug category.slug %}"><img src="{% static 'paprika/image/feed-icon-16x16.png' %}" /></a>
     <a href="{% url 'category_list' board.slug %}" class="btn btn-primary btn-small">{% trans 'List' %}</a>
 </h4>

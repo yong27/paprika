@@ -8,10 +8,10 @@
 <a href="{% url 'article_create' board.slug %}" class="btn btn-primary btn-small">{% trans 'Create' %}</a>
 {% endif %}
 
-<h4>Article list</h4>
+<h4>{% trans "Article list" %}</h4>
 
 {% if user.is_superuser and unpublished_articles %}
-<h5>Unpublished</h5>
+<h5>{% trans "Unpublished" %}</h5>
 <ul>
     {% for article in unpublished_articles %}
     <li>

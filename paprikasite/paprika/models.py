@@ -123,21 +123,21 @@ class Article(models.Model):
     )
     created_datetime = models.DateTimeField(
         verbose_name=ugettext_lazy('Created datetime'), 
-        help_text=ugettext_lazy('Article created datatime, \
-            it is created automatically.'),
+        help_text=ugettext_lazy('Article created datatime, '\
+                'it is created automatically.'),
         auto_now_add=True,
     )
     modified_datetime = models.DateTimeField(
         verbose_name=ugettext_lazy('Modified datetime'), 
-        help_text=ugettext_lazy('Article modified datatime, \
-            it is modified automatically.'),
+        help_text=ugettext_lazy('Article modified datatime, '\
+                'it is modified automatically.'),
         auto_now=True,
     )
     public_datetime = models.DateTimeField(
         verbose_name=ugettext_lazy('Public datatime'), 
-        help_text=ugettext_lazy('Article publication datatime, \
-            you can point the time. After this time, this \
-            article is open to the public.'),
+        help_text=ugettext_lazy('Article publication datatime, '\
+                'you can point the time. After this time, this '\
+                'article is open to the public.'),
         null=True, blank=True,
     )
     registrator = models.ForeignKey(User,
