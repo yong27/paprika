@@ -160,6 +160,11 @@ INSTALLED_APPS += (
     'paprika',
     'bootstrap_toolkit',
 )
+
+MIDDLEWARE_CLASSES += (
+    'django.middleware.transaction.TransactionMiddleware',
+)
+
 HOME_BOARD_SLUG = ''
 USE_PAPRIKA_COMMENT = True
 FB_COMMENT_APP_ID = None

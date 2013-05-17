@@ -22,7 +22,7 @@
     <button class="btn btn-primary btn-small">{% trans 'Publish' %}</button>
     {% endif %}
     <a class="btn btn-small" href="{% url 'article_update' board.id article.slug %}">{% trans 'Edit' %}</a>
-    <a class="btn btn-primary btn-small" href="{% url 'article_create' board.slug %}">{% trans 'Create' %}</a>
+    <a class="btn btn-warning btn-small" href="{% url 'article_create' board.slug %}">{% trans 'Delete' %}</a>
 </form>
 {% endif %}
 
