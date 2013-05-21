@@ -31,7 +31,7 @@ class BoardView(RedirectView):
 
     def get_redirect_url(self, board_slug):
         board = get_object_or_404(Board, slug=board_slug)
-	try:
+        try:
             latest_article = Article.objects.public_in_board(board).latest()
             return reverse('article_detail', args=(latest_article.id, latest_article.slug))
         except ObjectDoesNotExist:
