@@ -19,6 +19,7 @@ Django based blog and web board system. It supports Python3.3
     $ cd paprikasite
     $ vi paprikasite/settings_yours.py   ## add your settings here. refer settings.py
     $ python manage.py syncdb
+    $ python manage.py test paprika
     $ python manage.py runserver
 
 ## Installation (python2.7)
@@ -35,6 +36,7 @@ Django based blog and web board system. It supports Python3.3
     $ cd paprikasite
     $ vi paprikasite/settings_yours.py   ## add your settings here. refer settings.py
     $ python manage.py syncdb
+    $ python manage.py test paprika
     $ python manage.py runserver
 
 ## License

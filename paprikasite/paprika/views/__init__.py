@@ -45,7 +45,7 @@ class PaprikaExtraContext(ContextMixin):
             'fb_comment_app_id': settings.FB_COMMENT_APP_ID,
             'disqus_shortname': settings.DISQUS_SHORTNAME,
             'extra_head_html': mark_safe(settings.EXTRA_HEAD_HTML),
-            'http_host': self.request.META['HTTP_HOST'],
+            'http_host': self.request.META.get('HTTP_HOST', ''),
             'user_paprika_comment': settings.USE_PAPRIKA_COMMENT,
             'user': self.request.user,
         })

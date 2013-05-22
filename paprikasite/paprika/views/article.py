@@ -57,7 +57,7 @@ class ArticleForm(forms.ModelForm):
         custom_tags = self.fields.get('custom_tags')
         custom_tags.widget.attrs['class'] = 'span11'
 
-        if kwargs['instance']:
+        if kwargs.get('instance'):
             tags_value = kwargs['instance'].tags.values_list(
                     'slug', flat=True)
             custom_tags.initial = ", ".join(tags_value)
@@ -134,7 +134,6 @@ class ArticlePublish(RedirectView):
         article.save()
         return HttpResponseRedirect(reverse('article_detail',
             args=(article.id, article.slug)))
-
 
 
 class ArticleDetail(DetailView, PaprikaExtraContext):
