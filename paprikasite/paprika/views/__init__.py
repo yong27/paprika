@@ -18,12 +18,14 @@ class HomeView(RedirectView):
     def get_redirect_url(self):
         board = get_object_or_404(Board, slug=settings.HOME_BOARD_SLUG)
         try:
-            latest_article = Article.objects.public_in_board(
-                    board).latest()
-            return reverse('article_detail',
-                    args=(latest_article.id, latest_article.slug))
+            latest_article = Article.objects.public_in_board(board).latest()
         except ObjectDoesNotExist:
-            return reverse('article_list', args=(board.slug,))
+            latest_article = None
+
+        if latest_article:
+            return reverse('article_detail', args=(latest_article.id, 
+                    latest_article.slug))
+        return reverse('article_list', args=(board.slug,))
 
 
 class BoardView(RedirectView):
@@ -33,9 +35,13 @@ class BoardView(RedirectView):
         board = get_object_or_404(Board, slug=board_slug)
         try:
             latest_article = Article.objects.public_in_board(board).latest()
-            return reverse('article_detail', args=(latest_article.id, latest_article.slug))
         except ObjectDoesNotExist:
-            return reverse('article_list', args=(board.slug,))
+            latest_article = None
+
+        if latest_article:
+            return reverse('article_detail', args=(latest_article.id, 
+                    latest_article.slug))
+        return reverse('article_list', args=(board.slug,))
 
 
 class PaprikaExtraContext(ContextMixin):
