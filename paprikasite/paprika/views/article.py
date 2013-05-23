@@ -33,20 +33,17 @@ class ArticleList(ListView, PaprikaExtraContext):
 
 
 class ArticleForm(forms.ModelForm):
-    custom_tags = forms.CharField(
-            label=ugettext_lazy('Tags'), required=False,
-            help_text = ugettext_lazy(
-                'Seperate by comma(",") about each tag'))
+    custom_tags = forms.CharField(label=ugettext_lazy('Tags'), 
+            help_text = ugettext_lazy('Seperate by comma(",") about each tag'),
+            required=False)
 
     class Meta:
         model = Article
-        exclude = ('public_datetime', 'tags')
+        fields = ('category', 'title', 'slug', 'content')
 
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
 
-        self.fields['board'].widget = forms.HiddenInput()
-        self.fields['registrator'].widget = forms.HiddenInput()
         title = self.fields.get('title')
         title.widget.attrs['class'] = 'span11'
         slug = self.fields.get('slug')
@@ -71,16 +68,25 @@ class ArticleForm(forms.ModelForm):
                 field.widget.attrs['placeholder'] = field.help_text
             field.help_text = '*' if field.required else ''
 
-    @transaction.autocommit
+    def clean_custom_tags(self):
+        custom_tags = self.cleaned_data.get('custom_tags')
+        if custom_tags:
+            return [t.strip() for t in custom_tags.split(',')]
+        else:
+            return []
+
+    def set_board_and_registrator(self, board, registrator):
+        self.board = board
+        self.registrator = registrator
+
     def save(self, *args, **kwargs):
+        kwargs['commit'] = False
         article = super(ArticleForm, self).save(*args, **kwargs)
-        article.tags = []
-        for slug in self.cleaned_data['custom_tags'].split(','):
-            if not slug:
-                continue
-            slug = re.sub('^\s+|\s+$' ,'', slug)
-            tag, created = Tag.objects.get_or_create(
-                    slug=slug)
+        article.board = self.board
+        article.registrator = self.registrator
+        article.save()
+        for tag_string in self.cleaned_data['custom_tags']:
+            tag, created = Tag.objects.get_or_create(slug=tag_string)
             article.tags.add(tag)
         return article
 
@@ -91,28 +97,21 @@ class ArticleCreate(CreateView, PaprikaExtraContext):
 
     @method_decorator(user_passes_test(lambda u: u.is_staff or u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(ArticleCreate, self).dispatch(
-                request, *args, **kwargs)
-
-    def get_initial(self):
-        context = self.get_context_data()
-        initial = {}
-        initial['board'] = context['board']
-        initial['registrator'] = context['user']
-        return initial
+        return super(ArticleCreate, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        article = form.save()
-        article.board = get_object_or_404(
-                Board, slug=self.kwargs['board_slug'])
-        article.registrator = self.request.user
-        article.save()
+        board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        form.set_board_and_registrator(board, self.request.user)
         return super(ArticleCreate, self).form_valid(form)
 
 
 class ArticleUpdate(UpdateView, PaprikaExtraContext):
     form_class = ArticleForm
     model = Article
+
+    def form_valid(self, form):
+        form.set_board_and_registrator(form.instance.board, form.instance.registrator)
+        return super(ArticleUpdate, self).form_valid(form)
 
 
 class ArticlePublish(RedirectView):
