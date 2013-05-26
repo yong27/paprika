@@ -67,3 +67,24 @@ class ArticleTest(TestCase):
         self.assertEqual(set(t.slug for t in Tag.objects.all()), 
                 set(['my', 'world']))
 
+    def test_publish_article(self):
+        self.client.login(username='admin', password='1234')
+        self.client.post('/test-board/archive/create/', self.form_data)
+        self.client_guest = Client()
+
+        # guest can not see the content
+        response = self.client_guest.get('/1/test-article/')
+        self.assertEqual('hello world' in str(response.content), False)
+        # admin can see the content
+        response = self.client.get('/1/test-article/')
+        self.assertEqual('hello world' in str(response.content), True)
+
+        # after publish, guest can see the content
+        self.client.post('/1/test-article/publish/', {'publish': 'true'})
+        response = self.client_guest.get('/1/test-article/')
+        self.assertEqual('hello world' in str(response.content), True)
+        # after unpublish, guest can not see the content
+        self.client.post('/1/test-article/publish/', {'publish': 'false'})
+        response = self.client_guest.get('/1/test-article/')
+        self.assertEqual('hello world' in str(response.content), False)
+

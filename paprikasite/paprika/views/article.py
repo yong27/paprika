@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect 
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy 
-from django.db import transaction
+from django.utils.timezone import utc
 
 from paprika.models import Article, Board, Tag
 from paprika.views import PaprikaExtraContext
@@ -65,7 +65,7 @@ class ArticleForm(forms.ModelForm):
         instance = kwargs.get('instance')
         if instance:
             tags_value = instance.tags.values_list('slug', flat=True)
-            custom_tags.initial = ", ".join(tags_value)
+            self.fields['custom_tags'].initial = ", ".join(tags_value)
             self.set_board_and_registrator(instance.board, instance.registrator)
 
     def clean_custom_tags(self):
@@ -119,15 +119,15 @@ class ArticlePublish(RedirectView):
 
     @method_decorator(user_passes_test(lambda u: u.is_staff or u.is_superuser))
     def dispatch(self, request, *args, **kwargs):
-        return super(ArticlePublish, self).dispatch(
-                request, *args, **kwargs)
+        return super(ArticlePublish, self).dispatch( request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         do_publish = request.POST.get('publish')
         article = get_object_or_404(Article,
             slug=kwargs['slug'], id=kwargs['object_id'])
         if do_publish == 'true':
-            article.public_datetime = datetime.datetime.now()
+            article.public_datetime = datetime.datetime.utcnow().replace(
+                    tzinfo=utc)
         else:
             article.public_datetime = None
         article.save()
