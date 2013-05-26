@@ -60,6 +60,10 @@ class ArticleTest(TestCase):
         new_form_data = self.form_data.copy()
         new_form_data.update(custom_tags='my, world')
         response = self.client.post('/1/test-article/update/', new_form_data)
+
+        article = Article.objects.get(id=1)
+        self.assertEqual(set(t.slug for t in article.tags.all()), 
+                set(['my', 'world']))
         self.assertEqual(set(t.slug for t in Tag.objects.all()), 
-                set(['my', 'tags', 'world']))
+                set(['my', 'world']))
 

@@ -85,6 +85,10 @@ class ArticleForm(forms.ModelForm):
         article.board = self.board
         article.registrator = self.registrator
         article.save()
+        for tag in article.tags.all():
+            article.tags.remove(tag)
+            if not tag.article_set.exists():
+                tag.delete()
         for tag_string in self.cleaned_data['custom_tags']:
             tag, created = Tag.objects.get_or_create(slug=tag_string)
             article.tags.add(tag)
