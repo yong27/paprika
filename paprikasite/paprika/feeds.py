@@ -35,4 +35,5 @@ class ArticleByCategoryFeed(ArticleFeed):
         return board
 
     def items(self, board):
-        return Article.objects.public_in_board(board).filter(category=self.category)[:30]
+        return Article.objects.public_in_board(board).filter(
+                category=self.category)[:30]

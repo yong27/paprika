@@ -9,7 +9,8 @@ from paprika.views.article import ArticleForm
 class ArticleTest(TestCase):
 
     def setUp(self):
-        self.admin = User.objects.create_superuser('admin', 'admin@test.com', '1234')
+        self.admin = User.objects.create_superuser('admin', 
+                'admin@test.com', '1234')
         self.board = Board.objects.create(**{
             'type': 'blog',
             'title': 'Test board',
@@ -59,5 +60,6 @@ class ArticleTest(TestCase):
         new_form_data = self.form_data.copy()
         new_form_data.update(custom_tags='my, world')
         response = self.client.post('/1/test-article/update/', new_form_data)
-        self.assertEqual(set(t.slug for t in Tag.objects.all()), set(['my', 'tags', 'world']))
+        self.assertEqual(set(t.slug for t in Tag.objects.all()), 
+                set(['my', 'tags', 'world']))
 

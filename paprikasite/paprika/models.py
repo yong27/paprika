@@ -23,8 +23,9 @@ class Board(models.Model):
         ('tinymce', 'TinyMCE'),
     )
     type = models.CharField(verbose_name=ugettext_lazy('Board type'),
-        help_text=ugettext_lazy('Board type, web-board view supply title only list, '
-                    'blog is content included view.'),
+        help_text=ugettext_lazy(
+            'Board type, web-board view supply title only list, '
+            'blog is content included view.'),
         choices=BOARD_TYPE_CHOICES,
         max_length=50, 
     )
@@ -33,15 +34,18 @@ class Board(models.Model):
         max_length=200,
     )
     slug = models.CharField(verbose_name=ugettext_lazy('Slug'),
-        help_text=ugettext_lazy('Board slug, space is not permitted, it is used in URL.'),
+        help_text=ugettext_lazy(
+            'Board slug, space is not permitted, it is used in URL.'),
         max_length=100,
         unique=True,
     )
     description = models.TextField(verbose_name=ugettext_lazy('Description'),
-        help_text=ugettext_lazy('Board description, it is displayed in main page.'),
+        help_text=ugettext_lazy(
+            'Board description, it is displayed in main page.'),
     )
     markup = models.CharField(verbose_name=ugettext_lazy('Markup language'),
-        help_text=ugettext_lazy("Select markup language for this board's article editing"),
+        help_text=ugettext_lazy(
+            "Select markup language for this board's article editing"),
         choices=MARKUP_CHOICES,
         max_length=50,
     )
@@ -65,7 +69,8 @@ class Category(models.Model):
         max_length=200,
     )
     slug = models.CharField(verbose_name=ugettext_lazy('Slug'),
-        help_text=ugettext_lazy('Category slug, space is not permitted, it is used in URL.'),
+        help_text=ugettext_lazy(
+            'Category slug, space is not permitted, it is used in URL.'),
         max_length=100,
         unique=True,
     )
@@ -123,21 +128,22 @@ class Article(models.Model):
     )
     created_datetime = models.DateTimeField(
         verbose_name=ugettext_lazy('Created datetime'), 
-        help_text=ugettext_lazy('Article created datatime, '\
-                'it is created automatically.'),
+        help_text=ugettext_lazy(
+            'Article created datatime, it is created automatically.'),
         auto_now_add=True,
     )
     modified_datetime = models.DateTimeField(
         verbose_name=ugettext_lazy('Modified datetime'), 
-        help_text=ugettext_lazy('Article modified datatime, '\
-                'it is modified automatically.'),
+        help_text=ugettext_lazy(
+            'Article modified datatime, it is modified automatically.'),
         auto_now=True,
     )
     public_datetime = models.DateTimeField(
         verbose_name=ugettext_lazy('Public datatime'), 
-        help_text=ugettext_lazy('Article publication datatime, '\
-                'you can point the time. After this time, this '\
-                'article is open to the public.'),
+        help_text=ugettext_lazy(
+            'Article publication datatime, '
+            'you can point the time. After this time, this '
+            'article is open to the public.'),
         null=True, blank=True,
     )
     registrator = models.ForeignKey(User,

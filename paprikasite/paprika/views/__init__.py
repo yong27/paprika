@@ -56,7 +56,8 @@ class PaprikaExtraContext(ContextMixin):
             'user': self.request.user,
         })
         if 'board_slug' in self.kwargs:
-            context['board'] = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+            context['board'] = get_object_or_404(Board, 
+                    slug=self.kwargs['board_slug'])
         elif 'article' in context:
             context['board'] = context['article'].board
         return context

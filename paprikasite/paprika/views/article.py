@@ -28,7 +28,8 @@ class ArticleList(ListView, PaprikaExtraContext):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleList, self).get_context_data(**kwargs)
-        context['unpublished_articles'] = Article.objects.filter(public_datetime__isnull=True)
+        context['unpublished_articles'] = Article.objects.filter(
+                public_datetime__isnull=True)
         return context
 
 
@@ -55,8 +56,7 @@ class ArticleForm(forms.ModelForm):
         custom_tags.widget.attrs['class'] = 'span11'
 
         if kwargs.get('instance'):
-            tags_value = kwargs['instance'].tags.values_list(
-                    'slug', flat=True)
+            tags_value = kwargs['instance'].tags.values_list('slug', flat=True)
             custom_tags.initial = ", ".join(tags_value)
 
         for field_name in self.fields:
@@ -110,7 +110,8 @@ class ArticleUpdate(UpdateView, PaprikaExtraContext):
     model = Article
 
     def form_valid(self, form):
-        form.set_board_and_registrator(form.instance.board, form.instance.registrator)
+        form.set_board_and_registrator(form.instance.board, 
+                form.instance.registrator)
         return super(ArticleUpdate, self).form_valid(form)
 
 
