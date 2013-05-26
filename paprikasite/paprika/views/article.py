@@ -45,19 +45,13 @@ class ArticleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ArticleForm, self).__init__(*args, **kwargs)
 
-        title = self.fields.get('title')
-        title.widget.attrs['class'] = 'span11'
-        slug = self.fields.get('slug')
-        slug.widget.attrs['class'] = 'span6'
-        content = self.fields.get('content')
-        content.widget.attrs['class'] = 'span11'
-        content.widget.attrs['rows'] = '15'
-        custom_tags = self.fields.get('custom_tags')
-        custom_tags.widget.attrs['class'] = 'span11'
-
-        if kwargs.get('instance'):
-            tags_value = kwargs['instance'].tags.values_list('slug', flat=True)
-            custom_tags.initial = ", ".join(tags_value)
+        self.fields['title'].widget.attrs['class'] = 'span11'
+        self.fields['slug'].widget.attrs['class'] = 'span11'
+        self.fields['content'].widget.attrs = {
+            'class': 'span11',
+            'rows': '18',
+        }
+        self.fields['custom_tags'].widget.attrs['class'] = 'span11'
 
         for field_name in self.fields:
             field = self.fields.get(field_name)
@@ -67,6 +61,12 @@ class ArticleForm(forms.ModelForm):
                     forms.Textarea]:
                 field.widget.attrs['placeholder'] = field.help_text
             field.help_text = '*' if field.required else ''
+
+        instance = kwargs.get('instance')
+        if instance:
+            tags_value = instance.tags.values_list('slug', flat=True)
+            custom_tags.initial = ", ".join(tags_value)
+            self.set_board_and_registrator(instance.board, instance.registrator)
 
     def clean_custom_tags(self):
         custom_tags = self.cleaned_data.get('custom_tags')
@@ -112,11 +112,6 @@ class ArticleCreate(CreateView, PaprikaExtraContext):
 class ArticleUpdate(UpdateView, PaprikaExtraContext):
     form_class = ArticleForm
     model = Article
-
-    def form_valid(self, form):
-        form.set_board_and_registrator(form.instance.board, 
-                form.instance.registrator)
-        return super(ArticleUpdate, self).form_valid(form)
 
 
 class ArticlePublish(RedirectView):
