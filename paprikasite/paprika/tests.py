@@ -62,10 +62,10 @@ class ArticleTest(TestCase):
         response = self.client.post('/1/test-article/update/', new_form_data)
 
         article = Article.objects.get(id=1)
-        self.assertEqual(set(t.slug for t in article.tags.all()), 
-                set(['my', 'world']))
-        self.assertEqual(set(t.slug for t in Tag.objects.all()), 
-                set(['my', 'world']))
+        self.assertEqual({t.slug for t in article.tags.all()}, 
+                {'my', 'world'})
+        self.assertEqual({t.slug for t in Tag.objects.all()}, 
+                {'my', 'world'})
 
     def test_publish_article(self):
         self.client.login(username='admin', password='1234')
