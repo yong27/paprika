@@ -32,7 +32,7 @@
     {% if article.category %}
     <a href="{% url 'category_detail' board.slug article.category.slug %}">{{ article.category.title }}</a> - 
     {% endif %}
-    <small><a href="{% url 'article_detail' article.id article.slug %}">{{ article.created_datetime }}</a></small>
+    <small><a href="{% url 'article_detail' article.id article.slug %}">{{ article.public_datetime }}</a></small>
 </p>
 
 {% if article.board.markup == 'markdown' %}
