@@ -20,7 +20,7 @@ class CategoryList(ListView, PaprikaExtraContext):
         board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
         context['categories'] = Category.objects.filter(article__board=board,
                 ).annotate(num_articles=Count('article')
-                ).order_by('num_articles')
+                ).order_by('-num_articles')
         return context
 
 
