@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 
 from paprika.models import Category, Board, Article
 from paprika.views import PaprikaExtraContext
@@ -13,6 +14,14 @@ from paprika.views import PaprikaExtraContext
 class CategoryList(ListView, PaprikaExtraContext):
     model = Category
     context_object_name = 'categories'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryList, self).get_context_data(**kwargs)
+        board = get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        context['categories'] = Category.objects.filter(article__board=board,
+                ).annotate(num_articles=Count('article')
+                ).order_by('num_articles')
+        return context
 
 
 class CategoryCreate(CreateView, PaprikaExtraContext):
