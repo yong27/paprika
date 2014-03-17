@@ -16,6 +16,9 @@ Django based blog and web board system. It supports Python3.3
     $ virtualenv . -p python3.3
     $ source bin/activate
     $ pip install -r pip-requirements.txt
+    $ wget https://github.com/twbs/bootstrap/releases/download/v3.1.1/bootstrap-3.1.1-dist.zip
+    $ unzip bootstrap-3.1.1-dist.zip
+    $ mv bootstrap-3.1.1-dist paprikasite/paprika/static/paprika/bootstrap
     $ cd paprikasite
     $ vi paprikasite/settings_yours.py   ## add your settings here. refer settings.py
     $ python manage.py syncdb
@@ -33,6 +36,9 @@ Django based blog and web board system. It supports Python3.3
     sys.setdefaultencoding('utf-8')
     EOF
     $ pip install -r pip-requirements.txt
+    $ wget https://github.com/twbs/bootstrap/releases/download/v3.1.1/bootstrap-3.1.1-dist.zip
+    $ unzip bootstrap-3.1.1-dist.zip
+    $ mv bootstrap-3.1.1-dist paprikasite/paprika/static/paprika/bootstrap
     $ cd paprikasite
     $ vi paprikasite/settings_yours.py   ## add your settings here. refer settings.py
     $ python manage.py syncdb
