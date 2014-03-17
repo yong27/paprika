@@ -3,46 +3,38 @@
 
 {% block extrastyle %}
 {{ block.super }}
-<meta name="viewport" content="witdh=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="witdh=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 <link rel="stylesheet" type="text/css" href="{% static 'paprika/bootstrap/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'paprika/css/jumbotron-narrow.css' %}" />
 <style type="text/css">
-  body {
-    padding-top: 20px;
-    padding-bottom: 40px;
-  }
-
-  /* Custom container */
-  .container-narrow {
-    margin: 0 auto;
-    max-width: 700px;
-  }
-  .container-narrow > hr {
-    margin: 30px 0;
-  }
-
-  /* Supporting article content */
-  .article {
-    margin: 28px 0;
-    font-family: 나눔고딕, NanumGothic;
-    text-align: justify;
+/* Supporting article content */                                                .article {
+    margin: 28px 0;  
+    font-family: 나눔고딕, NanumGothic; 
+    text-align: justify; 
     font-size: 1.1em;
     line-height: 170%;
     word-break: break-all;
-  }
-  .article p + h4 {
+}
+.article p + h4 {
     margin-top: 28px;
-  }
-  .footer {
+}
+.article h4 {
+    font-weight: bold;
+}
+.footer {
     text-align: right;
-  }
+}
 </style>
-<link rel="stylesheet" type="text/css" href="{% static 'paprika/bootstrap/css/bootstrap-responsive.min.css' %}" />
 {% endblock %}
 
 {% block extrahead %}
 {{ block.super }}
 {{ extra_head_html }}
-<script src="{% static 'paprika/js/jquery-1.9.1.min.js' %}"></script>
+<script src="{% static 'paprika/js/jquery-1.11.0.min.js' %}"></script>
 <script src="{% static 'paprika/bootstrap/js/bootstrap.min.js' %}"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -66,18 +58,17 @@ $(document).ready(function() {
 {% block title %}{{ title }} | {% trans 'Paprika' %}{% endblock %}
 
 {% block body %}
-<div class="container-narrow">
-    <div class="masthead">
+<div class="container">
+    <div class="header">
         <ul class="menu nav nav-pills pull-right">
             <li class="home"><a href="{% url 'home' %}">Home</a></li>
 	    <li><a href="{% url 'category_list' board.slug %}">Category</a></li>
             <li><a href="{% url 'tag_list' board.slug %}">Tag</a></li>
             <li><a href="{% url 'article_list' board.slug %}">Archive</a></li>
         </ul>
-        <h3 class="muted">{{ board.title }}</h3>
+        <h3 class="text-muted">{{ board.title }}</h3>
         <p>{{ board.description }} <a href="{% url 'article_rss' board.slug %}"><img src="{% static 'paprika/image/feed-icon-16x16.png' %}" /></a></p>
     </div>
-    <hr />
     <div class="row-fluid article">
         {% block content %}{% endblock %}
     </div>
