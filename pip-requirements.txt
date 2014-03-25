@@ -1,4 +1,4 @@
 Django==1.6.2
 Pygments==1.6
-django-bootstrap-toolkit==2.15.0
 markdown2==2.2.1
+django-bootstrap3=3.3.0

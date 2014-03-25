@@ -1,5 +1,5 @@
 {% extends "paprika/base_site.html" %}
-{% load i18n bootstrap_toolkit %}
+{% load i18n bootstrap3 %}
 
 {% block title %}{{ board.title }}{% endblock %}
 
@@ -9,7 +9,7 @@
 <h4>{% trans 'Create article' %}</h4>
 
 <form action="." method="post" class="form-horizontal">{% csrf_token %}
-    {{ form|as_bootstrap }}
+    {% bootstrap_form form %}
     <div class="form-actions">
         <input class="btn btn-primary" type="submit" value="{% trans 'Save' %}" />
         <input class="btn" type="reset" value="{% trans 'Reset' %}" />

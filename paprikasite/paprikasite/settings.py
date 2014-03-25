@@ -161,7 +161,7 @@ INSTALLED_APPS += (
     'django.contrib.admindocs',
     'django.contrib.comments',
     'paprika',
-    'bootstrap_toolkit',
+    'bootstrap3',
 )
 
 HOME_BOARD_SLUG = ''
