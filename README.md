@@ -1,7 +1,7 @@
 paprika
 =======
 
-Django based blog and web board system. It supports Python3.3
+Django based blog and web board system. It supports Python3.4
 
 ## Main features
  1. Multiple blogs (using board)
@@ -9,11 +9,11 @@ Django based blog and web board system. It supports Python3.3
  3. Select markup language in (markdown, textile, restructuredtext, tinymce)
  4. Site management using Django admin
 
-## Installation (python3.3)
+## Installation (python3.4)
 
     $ git clone https://github.com/yong27/paprika
     $ cd paprika
-    $ virtualenv . -p python3.3
+    $ virtualenv . -p python3.4
     $ source bin/activate
     $ pip install -r pip-requirements.txt
     $ wget https://github.com/twbs/bootstrap/releases/download/v3.1.1/bootstrap-3.1.1-dist.zip
