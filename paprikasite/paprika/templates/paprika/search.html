@@ -1,0 +1,23 @@
+{% extends "paprika/base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block title %}{{ board.title }}{% endblock %}
+
+{% block content %}
+
+<h4>{% trans "Search result" %}</h4>
+
+<ul>
+    {% for article in articles %}
+    <li>
+        <small>{{ article.public_datetime|date:"Y-m-d, G:i" }}</small> 
+        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+        {% if user.is_superuser %}
+            <small>(<a href="{% url 'article_update' article.id article.slug %}">Edit</a>)</small>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>{% trans "There is no search result." %}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -9,4 +9,12 @@ body {
     font-size: .8em;
 }
 
+div.search input {
+    padding: 0.1em 0.5em;
+    border-radius: 0;
+    vertical-align: middle;
+}
 
+div.search input[type="submit"] {
+    display: none;
+}

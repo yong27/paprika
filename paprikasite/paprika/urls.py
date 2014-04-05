@@ -6,6 +6,7 @@ from paprika.views.category import (CategoryList,
 from paprika.views.article import (ArticleList, ArticlePublish,
         ArticleCreate, ArticleDetail, ArticleUpdate)
 from paprika.views.tag import TagList, TagDetail
+from paprika.views.search import SearchView
 from paprika.feeds import ArticleFeed, ArticleByCategoryFeed
 
 urlpatterns = patterns('',
@@ -30,6 +31,9 @@ urlpatterns = patterns('',
     url(r'^(?P<object_id>\d+)/(?P<slug>[-\w]+)/update/$', 
         ArticleUpdate.as_view(), name='article_update'),
 
+) + patterns('paprika.views.search',
+    url(r'^(?P<board_slug>[-\w]+)/search/$', 
+        SearchView.as_view(), name='search'),
 
 ) + patterns('paprika.views.category',
     url(r'^(?P<board_slug>[-\w]+)/category/$', 
