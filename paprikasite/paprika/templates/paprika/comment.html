@@ -1,4 +1,4 @@
-{% load i18n markups comments staticfiles %}
+{% load i18n markups staticfiles %}
 
 <div class="each_comments">
     {% if disqus_shortname %}
@@ -30,57 +30,6 @@
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
         </script>
-    </div>
-    {% endif %}
-
-    {% if use_paprika_comment %}
-    <div class="tab-pane active" id="paprika-comment">
-    {% get_comment_count for object as comment_count %}
-    {% render_comment_list for object %}
-    <hr />
-    {% get_comment_form for object as form %}
-    <form action="{% comment_form_target %}" method="post" class="form-horizontal">
-        {% csrf_token %}
-        {{ form.content_type }}
-        {{ form.object_pk }}
-        {{ form.timestamp }}
-        {{ form.security_hash }}
-        <div class="control-group">
-            <label class="control-label" for="id_name">{{ form.name.label }}</label>
-            <div class="controls">
-                <input id="id_name" type="text" name="name" placeholder="{{ form.name.label }}" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="id_email">{{ form.email.label }}</label>
-            <div class="controls">
-                <input id="id_email" type="text" name="email" placeholder="{{ form.email.label }}" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="id_url">{{ form.url.label }}</label>
-            <div class="controls">
-                <input id="id_url" type="text" name="url" placeholder="{{ form.url.label }}" />
-            </div>
-        </div>
-        <div style="display:none;">
-            <label class="control-label" for="id_honeypot">{{ form.honeypot.label }}</label>
-            <div class="controls">
-                <input id="id_honeypot" type="text" name="honeypot" placeholder="{{ form.honeypot.label }}" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="id_comment">{{ form.comment.label }}</label>
-            <div class="controls">
-                <textarea id="id_comment" type="text" name="comment" rows="5" placeholder="{{ form.comment.label }}" class="input-xlarge"></textarea>
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <button type="submit" class="btn">{% trans "Submit" %}</button>
-            </div>
-        </div>
-    </form>
     </div>
     {% endif %}
 

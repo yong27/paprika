@@ -8,3 +8,4 @@ paprika.db
 *.swp
 settings_yours.py
 paprikasite/paprika/static/paprika/bootstrap/
+paprikasite/db.sqlite3
