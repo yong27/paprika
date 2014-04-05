@@ -26,5 +26,6 @@ class SearchView(TemplateView, PaprikaExtraContext):
         form = SearchForm(self.request.GET or None)
         if form.is_valid():
             context['articles'] = form.search(board)
+            context['form'] = form
         return context
 

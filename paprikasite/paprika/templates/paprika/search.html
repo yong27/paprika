@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h4>{% trans "Search result" %}</h4>
+<h4>{% blocktrans with query=form.cleaned_data.q %}Search result for "{{ query }}"{% endblocktrans %}</h4>
 
 <ul>
     {% for article in articles %}
